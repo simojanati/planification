@@ -1,0 +1,191 @@
+[
+    {
+        "idColaborateur": 1,
+        "idSemaine": 1,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 2,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 6",
+        "nbrJourTotal": 8
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 3,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 4,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 5",
+        "nbrJourTotal": 7
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 5,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 2",
+        "nbrJourTotal": 2
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 13,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 3<br/>Projet 2, Nombre jour : 6",
+        "nbrJourTotal": 9
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 16,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 2",
+        "nbrJourTotal": 2
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 18,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 3",
+        "nbrJourTotal": 3
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 30,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 3",
+        "nbrJourTotal": 3
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 32,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 57,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 58,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 59,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 2",
+        "nbrJourTotal": 2
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 61,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 64,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 68,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 73,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 77,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 1",
+        "nbrJourTotal": 3
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 80,
+        "idProjet": 1,
+        "information": "Projet 1, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 2,
+        "idProjet": 2,
+        "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 6",
+        "nbrJourTotal": 8
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 4,
+        "idProjet": 2,
+        "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 5",
+        "nbrJourTotal": 7
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 7,
+        "idProjet": 2,
+        "information": "Projet 2, Nombre jour : 6",
+        "nbrJourTotal": 6
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 13,
+        "idProjet": 2,
+        "information": "Projet 1, Nombre jour : 3<br/>Projet 2, Nombre jour : 6",
+        "nbrJourTotal": 9
+    },
+    {
+        "idColaborateur": 1,
+        "idSemaine": 77,
+        "idProjet": 2,
+        "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 1",
+        "nbrJourTotal": 3
+    },
+    {
+        "idColaborateur": 2,
+        "idSemaine": 64,
+        "idProjet": 2,
+        "information": "Projet 2, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 2,
+        "idSemaine": 71,
+        "idProjet": 2,
+        "information": "Projet 2, Nombre jour : 1",
+        "nbrJourTotal": 1
+    },
+    {
+        "idColaborateur": 2,
+        "idSemaine": 76,
+        "idProjet": 2,
+        "information": "Projet 2, Nombre jour : 2",
+        "nbrJourTotal": 2
+    }
+]

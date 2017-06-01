@@ -1,0 +1,18 @@
+[
+    {
+        "idCollaborateur":1,
+        "email":"mjanatiidrissi@sqli.com",
+        "nom":"janati idrissi",
+        "prenom":"mohammed",
+        "tel":"0639166209",
+        "dateRecrutement":"2017-05-01"
+    },
+    {
+        "idCollaborateur":2,
+        "email":"test@sqli.com",
+        "nom":"test",
+        "prenom":"test",
+        "tel":"0611223344",
+        "dateRecrutement":"2017-05-15"
+    }
+]

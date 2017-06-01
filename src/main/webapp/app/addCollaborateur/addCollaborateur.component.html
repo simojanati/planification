@@ -1,0 +1,123 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-users"></i> Gestion Collaborateur
+            </li>
+            <li class="active">
+                <a [routerLink]="['/addCollaborateur']">Ajoute Collaborateur</a>
+            </li>
+        </ul>
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input"
+                       id="nav-search-input" autocomplete="off"/>
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+            </form>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <div class="row">
+                <h1 style="float: left">Ajouter un collaborateur </h1>
+                <div style="float: right">
+                    <button [routerLink]="['/listeCollaborateurs']" (click)="active('gererCollab');" class="btn btn-sm btn-primary">
+					<i class="ace-icon fa fa-list bigger-110"></i>
+					<span class="bigger-110 no-text-shadow">La liste des Collaborateurs</span>
+				</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="form-horizontal">
+                    <div class="space-6"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="nom"> Nom </label>
+
+                        <div class="col-sm-7">
+                            <input type="text" id="nom" placeholder="Nom" [(ngModel)]='nom' required class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="prenom"> Prenom </label>
+                        <div class="col-sm-7">
+                            <input type="text" id="prenom" placeholder="Prénom" [(ngModel)]='prenom' required class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="email"> Email </label>
+
+                        <div class="col-sm-7">
+                            <input type="email" id="email" placeholder="email@sqli.com" required [(ngModel)]='email' class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="tel"> Téléphone </label>
+
+                        <div class="col-sm-7">
+                            <div class="input-group col-sm-7">
+                                <span class="input-group-addon">
+								<i class="ace-icon fa fa-phone"></i>
+							</span>
+                                <input class="col-xs-10 col-sm-8" [(ngModel)]='tel' required placeholder="06 XX XX XX XX" type="text" id="tel" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="tel"> Date de recrutement </label>
+
+                        <div class="col-sm-7">
+                            <div class="input-group col-sm-5">
+                                <input class="form-control date-picker" [(ngModel)]='dateRecrutement' id="id-date-picker-1" type="date" data-date-format="dd-mm-yyyy"
+                                />
+                                <span class="input-group-addon">
+									<i class="fa fa-calendar bigger-110"></i>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-sm-8">
+                            <button class="btn btn-inverse" (click)='addCollaborateur()'>Ajouter</button>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="alert alert-danger" *ngIf="msgError!=''">
+                            <button type="button" class="close" data-dismiss="alert">
+												<i class="ace-icon fa fa-times"></i>
+											</button>
+                            <strong>
+												<i class="ace-icon fa fa-times"></i>
+												ERROR ! 
+											</strong> {{msgError}}
+                            <br />
+                        </div>
+                        <div class="alert alert-block alert-success" *ngIf="reponse!=''">
+                            <button type="button" id="reussi" class="close" data-dismiss="alert">
+												<i class="ace-icon fa fa-times"></i>
+											</button>
+
+                            <p>
+                                <strong>
+													<i class="ace-icon fa fa-check"></i>
+													success ! 
+												</strong>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+        </div>
+    </div>
+</div>

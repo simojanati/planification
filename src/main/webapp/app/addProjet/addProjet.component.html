@@ -1,0 +1,92 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-product-hunt"></i> Gestion Projets
+            </li>
+            <li class="active">
+                <a [routerLink]="['/addProjet']">Ajoute Projet</a>
+            </li>
+        </ul>
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input"
+                       id="nav-search-input" autocomplete="off"/>
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+            </form>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <div class="row">
+                <h1 style="float: left">Ajouter un projet </h1>
+                <div style="float: right">
+                    <button [routerLink]="['/listeProjets']" (click)="active('gererProjet');" class="btn btn-sm btn-primary">
+					<i class="ace-icon fa fa-list bigger-110"></i>
+					<span class="bigger-110 no-text-shadow">La liste des Projets</span>
+				</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="form-horizontal">
+                    <div class="space-6"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="titreProjet"> Titre </label>
+
+                        <div class="col-sm-7">
+                            <input type="text" id="titreProjet" placeholder="Titre du Projet" [(ngModel)]='titreProjet' class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="descriptionProjet"> Description </label>
+                        <div class="col-sm-7">
+                            <textarea class="col-xs-10 col-sm-5" id="descriptionProjet" [(ngModel)]='descriptionProjet' placeholder="Description du projet"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-sm-8">
+                            <button class="btn btn-inverse" (click)='ajouterProjet()'>Ajouter</button>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="alert alert-danger" *ngIf="msgError!=''">
+                            <button type="button" class="close" data-dismiss="alert">
+												<i class="ace-icon fa fa-times"></i>
+											</button>
+                            <strong>
+												<i class="ace-icon fa fa-times"></i>
+												ERROR ! 
+											</strong> {{msgError}}
+                            <br />
+                        </div>
+                        <div class="alert alert-block alert-success" *ngIf="reponse!=''">
+                            <button type="button" id="reussi" class="close" data-dismiss="alert">
+												<i class="ace-icon fa fa-times"></i>
+											</button>
+
+                            <p>
+                                <strong>
+													<i class="ace-icon fa fa-check"></i>
+													success ! 
+												</strong>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+        </div>
+    </div>
+</div>

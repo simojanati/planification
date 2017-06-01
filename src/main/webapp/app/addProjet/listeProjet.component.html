@@ -1,0 +1,201 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-product-hunt"></i> Gestion Projets
+            </li>
+            <li class="active">
+                <a [routerLink]="['/addProjet']">Gerer Projets</a>
+            </li>
+        </ul>
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input"
+                       id="nav-search-input" autocomplete="off"/>
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+            </form>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <div class="row">
+                <h2 id="blue" class="col-xs-6">Liste des Projets</h2>
+                <div class="col-xs-2">
+                    <label class="label-control">Lignes sur la page</label>
+                    <select class="form-control input-sm" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="15">15</option>
+                </select>
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <label class="col-xs-12 label-control">Trier par</label>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <select class="form-control input-sm" [(ngModel)]="sortBy">
+                            <option ngValue="titreProjet">Titre</option>
+                            <option ngValue="descriptionProjet">Description</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <select class="form-control input-sm" [(ngModel)]="sortOrder">
+                            <option ngValue="asc">Ascendant</option>
+                            <option ngValue="desc">Descendant</option>
+                            <option ngValue="badValue">Mauvaise valeur</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button [routerLink]="['/addProjet']" (click)="active('addProjet');" class="btn btn-sm btn-primary">
+					<i class="ace-icon fa fa-plus bigger-110"></i>
+					<span class="bigger-110 no-text-shadow">Ajouter</span>
+				</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Les informations des Projets</div>
+
+                    <table class="table table-striped" [mfData]="data | dataFilterProjet : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+                        [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                        <thead>
+                            <tr>
+                                <th style="width: 46%;text-align: center">
+                                    <mfDefaultSorter by="titreProjet">Titre</mfDefaultSorter>
+                                </th>
+                                <th style="width: 46%;text-align: center">
+                                    <mfDefaultSorter by="descriptionProjet">Description</mfDefaultSorter>
+                                </th>
+                                <th style="width: 8%"></th>
+                            </tr>
+                            <tr>
+                                <th colspan="3">
+                                    Filtrer par titre:
+                                    <input class="form-control" [(ngModel)]="filterQuery" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of mf.data">
+                                <td>{{item.titreProjet}}</td>
+                                <td>{{item.descriptionProjet}}</td>
+                                <td>
+                                    <div class="hidden-sm hidden-xs action-buttons">
+                                        <a title="Modifier" class="green" style="cursor: pointer" (click)='remplirDonnee(item.idProjet,item.titreProjet,item.descriptionProjet)'
+                                            data-toggle="modal" [attr.data-target]="'#myModalM' + item.idProjet">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+                                        <a title="Supprimer" class="red" style="cursor: pointer" data-toggle="modal" [attr.data-target]="'#myModalS' + item.idProjet">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+                                    </div>
+                                    <div class="modal fade" id="myModalS{{item.idProjet}}" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Confirmation de la suppression</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>êtes-vous sûr ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" (click)="deleteProjet(item.idProjet)" data-dismiss="modal">Oui</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="myModalM{{item.idProjet}}" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Modifier le projet Numéro : {{item.idProjet}}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <!-- PAGE CONTENT BEGINS -->
+                                                            <div class="form-horizontal">
+                                                                <div class="space-6"></div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label no-padding-right" for="titreProjet"> Titre </label>
+
+                                                                    <div class="col-sm-7">
+                                                                        <input type="text" id="titreProjet" placeholder="Titre du Projet" [(ngModel)]='titreProjet' 
+                                                                            class="col-xs-10 col-sm-10" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label no-padding-right" for="descriptionProjet"> Description </label>
+                                                                    <div class="col-sm-7">
+                                                                        <textarea class="col-xs-10 col-sm-10" id="descriptionProjet" [(ngModel)]='descriptionProjet' 
+                                                                            placeholder="Description du projet"></textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group text-center">
+                                                                    <div class="alert alert-danger" *ngIf="msgError!=''">
+                                                                        <button type="button" class="close" data-dismiss="alert">
+												                        <i class="ace-icon fa fa-times"></i>
+											                            </button>
+                                                                        <strong>
+												                            <i class="ace-icon fa fa-times"></i>
+												                                ERROR ! 
+											                            </strong>  {{msgError}}
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+                                                                <!-- PAGE CONTENT ENDS -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" (click)="updateProjet()" [attr.data-dismiss]="dataDissmiss">Modifier</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+        </div>
+    </div>
+</div>
