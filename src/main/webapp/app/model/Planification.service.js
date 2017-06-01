@@ -36,7 +36,7 @@ var PlanificationService = (function () {
     PlanificationService.prototype.addPlanification = function (idPlanning, affecters) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        var result = this._http.post('http://localhost:8080/planification/addPlanification', {
+        var result = this._http.post(this.urlRest.getUrl() + 'planification/addPlanification', {
             idPlanning: idPlanning,
             projets: affecters
         }, { headers: headers })
