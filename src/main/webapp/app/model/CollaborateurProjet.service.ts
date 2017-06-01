@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CollaborateurProjet } from './CollaborateurProjet';
 import { Http, Response, Headers } from '@angular/http';
+import { URLRest } from './URLRest';
 import { Observable } from 'rxjs/Observable';
 import { Projet } from './Projet';
 import { MsgError } from './MsgError';
@@ -12,12 +13,12 @@ import 'rxjs/add/operator/catch';
 export class CollaborateurProjetService {
 
 
-    private _affecterUrl = 'http://localhost:8080/collaborateurProjet/getCollaborateurProjet';
-    private _addAffecterUrl = 'http://localhost:8080/collaborateurProjet/addCollaborateurProjet';
-    private _affecterByPlanningUrl = 'http://localhost:8080/collaborateurProjet/getCollaborateurProjetByPlanning';
-    private _deleteUrl = 'http://localhost:8080/collaborateurProjet/deleteCollaborateurProjet';
+    private _affecterUrl = this.urlRest.getUrl() + 'collaborateurProjet/getCollaborateurProjet';
+    private _addAffecterUrl = this.urlRest.getUrl() + 'collaborateurProjet/addCollaborateurProjet';
+    private _affecterByPlanningUrl = this.urlRest.getUrl() + 'collaborateurProjet/getCollaborateurProjetByPlanning';
+    private _deleteUrl = this.urlRest.getUrl() + 'collaborateurProjet/deleteCollaborateurProjet';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private urlRest: URLRest) { }
 
     getCollaborateurProjet(): Observable<CollaborateurProjet[]> {
         return this._http.get(this._affecterUrl)

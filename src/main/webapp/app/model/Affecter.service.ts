@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Affecter } from './Affecter';
 import { MsgError } from './MsgError';
+import { URLRest } from './URLRest';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,10 +12,9 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class AffecterService {
 
+    private _AffectaerUrl = this.urlRest.getUrl() + 'affecter/getAffectations';
 
-    private _AffectaerUrl = 'http://localhost:8080/affecter/getAffectations';
-
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private urlRest: URLRest) { }
 
     getAffectations(): Observable<Affecter[]> {
         return this._http.get(this._AffectaerUrl)
@@ -28,7 +28,7 @@ export class AffecterService {
 
         headers.append('Content-Type', 'application/json');
 
-        let result = this._http.post('http://localhost:8080/affecter/addAffectation', {
+        let result = this._http.post(this.urlRest.getUrl() + 'affecter/addAffectation', {
             idCollaborateur: idCollaborateur,
             idProjet: idProjet,
             idSemaine: idSemaine,

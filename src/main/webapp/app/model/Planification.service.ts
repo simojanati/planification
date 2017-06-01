@@ -5,6 +5,7 @@ import { Projet } from './Projet';
 import { Affecter } from './Affecter';
 import { CollaborateurProjet } from './../model/CollaborateurProjet';
 import { Http, Response, Headers } from '@angular/http';
+import { URLRest } from './URLRest';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -14,10 +15,10 @@ import 'rxjs/add/operator/catch';
 export class PlanificationService {
 
 
-    private _PlanificationUrl = 'http://localhost:8080/planification/getPlanification';
-    private _PlanificationsUrl = 'http://localhost:8080/planification/getAllPlanification';
+    private _PlanificationUrl = this.urlRest.getUrl() + 'planification/getPlanification';
+    private _PlanificationsUrl = this.urlRest.getUrl() + 'planification/getAllPlanification';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private urlRest: URLRest) { }
 
     getAllPlanification(): Observable<Planification[]> {
         return this._http.get(this._PlanificationsUrl)
@@ -34,7 +35,7 @@ export class PlanificationService {
     addPlanification(idPlanning: number, affecters: Array<Projet>) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        var result = this._http.post('http://localhost:8080/planification/addPlanification', {
+        var result = this._http.post(this.urlRest.getUrl() + 'planification/addPlanification', {
             idPlanning: idPlanning,
             projets: affecters
         }, { headers: headers })

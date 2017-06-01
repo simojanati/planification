@@ -11,17 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var CollaborateurService = (function () {
-    function CollaborateurService(_http) {
+    function CollaborateurService(_http, urlRest) {
         this._http = _http;
-        this._collaborateurUrl = 'http://localhost:8080/collaborateur/getCollaborateurs';
-        this._deleteUrl = 'http://localhost:8080/collaborateur/deleteCollaborateur';
-        this._addUrl = 'http://localhost:8080/collaborateur/addCollaborateur';
-        this._updateUrl = 'http://localhost:8080/collaborateur/updateCollaborateur';
+        this.urlRest = urlRest;
+        this._collaborateurUrl = this.urlRest.getUrl() + 'collaborateur/getCollaborateurs';
+        this._deleteUrl = this.urlRest.getUrl() + 'collaborateur/deleteCollaborateur';
+        this._addUrl = this.urlRest.getUrl() + 'collaborateur/addCollaborateur';
+        this._updateUrl = this.urlRest.getUrl() + 'collaborateur/updateCollaborateur';
     }
     CollaborateurService.prototype.getCollaborateurs = function () {
         return this._http.get(this._collaborateurUrl)
@@ -55,7 +57,7 @@ var CollaborateurService = (function () {
 }());
 CollaborateurService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], CollaborateurService);
 exports.CollaborateurService = CollaborateurService;
 //# sourceMappingURL=Collaborateur.service.js.map

@@ -11,19 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var ProjetService = (function () {
-    function ProjetService(_http) {
+    function ProjetService(_http, urlRest) {
         this._http = _http;
-        this._projetsUrl = 'http://localhost:8080/projet/getProjets';
-        this._addUrl = 'http://localhost:8080/projet/addProjet';
-        this._updateUrl = 'http://localhost:8080/projet/updateProjet';
-        this._projetUrl = 'http://localhost:8080/projet/getProjet';
-        this._deleteUrl = 'http://localhost:8080/projet/deleteProjet';
-        this._projetByPlanningUrl = 'http://localhost:8080/projet/getProjetByPlanning';
+        this.urlRest = urlRest;
+        this._projetsUrl = this.urlRest.getUrl() + 'projet/getProjets';
+        this._addUrl = this.urlRest.getUrl() + 'projet/addProjet';
+        this._updateUrl = this.urlRest.getUrl() + 'projet/updateProjet';
+        this._projetUrl = this.urlRest.getUrl() + 'projet/getProjet';
+        this._deleteUrl = this.urlRest.getUrl() + 'projet/deleteProjet';
+        this._projetByPlanningUrl = this.urlRest.getUrl() + 'projet/getProjetByPlanning';
     }
     ProjetService.prototype.getProjets = function (idCollaborateur) {
         return this._http.get(this._projetsUrl + '?idCollaborateur=' + idCollaborateur)
@@ -67,7 +69,7 @@ var ProjetService = (function () {
 }());
 ProjetService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], ProjetService);
 exports.ProjetService = ProjetService;
 //# sourceMappingURL=Projet.service.js.map

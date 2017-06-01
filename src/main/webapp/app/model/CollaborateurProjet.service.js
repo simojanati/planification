@@ -11,17 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var CollaborateurProjetService = (function () {
-    function CollaborateurProjetService(_http) {
+    function CollaborateurProjetService(_http, urlRest) {
         this._http = _http;
-        this._affecterUrl = 'http://localhost:8080/collaborateurProjet/getCollaborateurProjet';
-        this._addAffecterUrl = 'http://localhost:8080/collaborateurProjet/addCollaborateurProjet';
-        this._affecterByPlanningUrl = 'http://localhost:8080/collaborateurProjet/getCollaborateurProjetByPlanning';
-        this._deleteUrl = 'http://localhost:8080/collaborateurProjet/deleteCollaborateurProjet';
+        this.urlRest = urlRest;
+        this._affecterUrl = this.urlRest.getUrl() + 'collaborateurProjet/getCollaborateurProjet';
+        this._addAffecterUrl = this.urlRest.getUrl() + 'collaborateurProjet/addCollaborateurProjet';
+        this._affecterByPlanningUrl = this.urlRest.getUrl() + 'collaborateurProjet/getCollaborateurProjetByPlanning';
+        this._deleteUrl = this.urlRest.getUrl() + 'collaborateurProjet/deleteCollaborateurProjet';
     }
     CollaborateurProjetService.prototype.getCollaborateurProjet = function () {
         return this._http.get(this._affecterUrl)
@@ -56,7 +58,7 @@ var CollaborateurProjetService = (function () {
 }());
 CollaborateurProjetService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], CollaborateurProjetService);
 exports.CollaborateurProjetService = CollaborateurProjetService;
 //# sourceMappingURL=CollaborateurProjet.service.js.map

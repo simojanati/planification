@@ -11,21 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var PlanningService = (function () {
-    function PlanningService(_http) {
+    function PlanningService(_http, urlRest) {
         this._http = _http;
-        this._PlanningUrl = 'http://localhost:8080/planning/getPlanning';
-        this._PlanningByIdUrl = 'http://localhost:8080/planning/getPlanningById';
-        this._deleteUrl = 'http://localhost:8080/planning/deletePlanning';
-        this._addUrl = 'http://localhost:8080/planning/addPlanning';
-        this._updateUrl = 'http://localhost:8080/planning/updatePlanning';
-        this._PlanningProjetsUrl = 'http://localhost:8080/planning/getplanningProjets';
+        this.urlRest = urlRest;
+        this._PlanningUrl = this.urlRest.getUrl() + 'planning/getPlanning';
+        this._PlanningByIdUrl = this.urlRest.getUrl() + 'planning/getPlanningById';
+        this._deleteUrl = this.urlRest.getUrl() + 'planning/deletePlanning';
+        this._addUrl = this.urlRest.getUrl() + 'planning/addPlanning';
+        this._updateUrl = this.urlRest.getUrl() + 'planning/updatePlanning';
+        this._PlanningProjetsUrl = this.urlRest.getUrl() + 'planning/getplanningProjets';
     }
     PlanningService.prototype.getPlanning = function () {
+        console.log(this.urlRest.getUrl());
         return this._http.get(this._PlanningUrl)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
@@ -67,7 +70,7 @@ var PlanningService = (function () {
 }());
 PlanningService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], PlanningService);
 exports.PlanningService = PlanningService;
 //# sourceMappingURL=Planning.service.js.map

@@ -11,15 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var SemaineService = (function () {
-    function SemaineService(_http) {
+    function SemaineService(_http, urlRest) {
         this._http = _http;
-        this._semaineUrl = 'http://localhost:8080/semaine/getSemainesByPlanning';
-        this._moisUrl = 'http://localhost:8080/semaine/getMois';
+        this.urlRest = urlRest;
+        this._semaineUrl = this.urlRest.getUrl() + 'semaine/getSemainesByPlanning';
+        this._moisUrl = this.urlRest.getUrl() + 'semaine/getMois';
     }
     SemaineService.prototype.getSemaineByPlanning = function (idPlanning) {
         return this._http.get(this._semaineUrl + '?idPlanning=' + idPlanning)
@@ -39,7 +41,7 @@ var SemaineService = (function () {
 }());
 SemaineService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], SemaineService);
 exports.SemaineService = SemaineService;
 //# sourceMappingURL=Semaine.service.js.map

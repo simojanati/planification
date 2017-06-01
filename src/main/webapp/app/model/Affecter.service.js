@@ -10,15 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var URLRest_1 = require("./URLRest");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var AffecterService = (function () {
-    function AffecterService(_http) {
+    function AffecterService(_http, urlRest) {
         this._http = _http;
-        this._AffectaerUrl = 'http://localhost:8080/affecter/getAffectations';
+        this.urlRest = urlRest;
+        this._AffectaerUrl = this.urlRest.getUrl() + 'affecter/getAffectations';
     }
     AffecterService.prototype.getAffectations = function () {
         return this._http.get(this._AffectaerUrl)
@@ -28,7 +30,7 @@ var AffecterService = (function () {
     AffecterService.prototype.addAffectation = function (idCollaborateur, idProjet, idSemaine, nbrJour) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        var result = this._http.post('http://localhost:8080/affecter/addAffectation', {
+        var result = this._http.post(this.urlRest.getUrl() + 'affecter/addAffectation', {
             idCollaborateur: idCollaborateur,
             idProjet: idProjet,
             idSemaine: idSemaine,
@@ -45,7 +47,7 @@ var AffecterService = (function () {
 }());
 AffecterService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], AffecterService);
 exports.AffecterService = AffecterService;
 //# sourceMappingURL=Affecter.service.js.map

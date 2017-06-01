@@ -11,15 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var PlanificationService = (function () {
-    function PlanificationService(_http) {
+    function PlanificationService(_http, urlRest) {
         this._http = _http;
-        this._PlanificationUrl = 'http://localhost:8080/planification/getPlanification';
-        this._PlanificationsUrl = 'http://localhost:8080/planification/getAllPlanification';
+        this.urlRest = urlRest;
+        this._PlanificationUrl = this.urlRest.getUrl() + 'planification/getPlanification';
+        this._PlanificationsUrl = this.urlRest.getUrl() + 'planification/getAllPlanification';
     }
     PlanificationService.prototype.getAllPlanification = function () {
         return this._http.get(this._PlanificationsUrl)
@@ -49,7 +51,7 @@ var PlanificationService = (function () {
 }());
 PlanificationService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], PlanificationService);
 exports.PlanificationService = PlanificationService;
 //# sourceMappingURL=Planification.service.js.map

@@ -16,6 +16,7 @@ var Semaine_service_1 = require("./model/Semaine.service");
 var CollaborateurProjet_service_1 = require("./model/CollaborateurProjet.service");
 var Projet_service_1 = require("./model/Projet.service");
 var CollaborateurSemaine_service_1 = require("./model/CollaborateurSemaine.service");
+var URLRest_1 = require("./model/URLRest");
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -47,7 +48,8 @@ AppComponent = __decorate([
             Semaine_service_1.SemaineService,
             CollaborateurProjet_service_1.CollaborateurProjetService,
             Projet_service_1.ProjetService,
-            CollaborateurSemaine_service_1.CollaborateurSemaineService
+            CollaborateurSemaine_service_1.CollaborateurSemaineService,
+            URLRest_1.URLRest
         ]
     })
 ], AppComponent);

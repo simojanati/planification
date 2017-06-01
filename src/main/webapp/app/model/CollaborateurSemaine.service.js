@@ -11,14 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var URLRest_1 = require("./URLRest");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var CollaborateurSemaineService = (function () {
-    function CollaborateurSemaineService(_http) {
+    function CollaborateurSemaineService(_http, urlRest) {
         this._http = _http;
-        this._infoUrl = 'http://localhost:8080/affecter/getAffectationCollaborateurSemaine';
+        this.urlRest = urlRest;
+        this._infoUrl = this.urlRest.getUrl() + 'affecter/getAffectationCollaborateurSemaine';
     }
     CollaborateurSemaineService.prototype.getCollaborateurSemaine = function () {
         return this._http.get(this._infoUrl)
@@ -33,7 +35,7 @@ var CollaborateurSemaineService = (function () {
 }());
 CollaborateurSemaineService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, URLRest_1.URLRest])
 ], CollaborateurSemaineService);
 exports.CollaborateurSemaineService = CollaborateurSemaineService;
 //# sourceMappingURL=CollaborateurSemaine.service.js.map

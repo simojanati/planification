@@ -6,6 +6,7 @@ import { PlanningProjetlist } from './PlanningProjetList';
 import { Affecter } from './Affecter';
 import { CollaborateurProjet } from './../model/CollaborateurProjet';
 import { Http, Response, Headers } from '@angular/http';
+import { URLRest } from './URLRest';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -14,17 +15,18 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class PlanningService {
 
+    
+    private _PlanningUrl = this.urlRest.getUrl() + 'planning/getPlanning';
+    private _PlanningByIdUrl = this.urlRest.getUrl() + 'planning/getPlanningById';
+    private _deleteUrl = this.urlRest.getUrl() + 'planning/deletePlanning';
+    private _addUrl = this.urlRest.getUrl() + 'planning/addPlanning';
+    private _updateUrl = this.urlRest.getUrl() + 'planning/updatePlanning';
+    private _PlanningProjetsUrl = this.urlRest.getUrl() + 'planning/getplanningProjets';
 
-    private _PlanningUrl = 'http://localhost:8080/planning/getPlanning';
-    private _PlanningByIdUrl = 'http://localhost:8080/planning/getPlanningById';
-    private _deleteUrl = 'http://localhost:8080/planning/deletePlanning';
-    private _addUrl = 'http://localhost:8080/planning/addPlanning';
-    private _updateUrl = 'http://localhost:8080/planning/updatePlanning';
-    private _PlanningProjetsUrl = 'http://localhost:8080/planning/getplanningProjets';
-
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private urlRest: URLRest) { }
 
     getPlanning(): Observable<Planning[]> {
+        console.log(this.urlRest.getUrl());
         return this._http.get(this._PlanningUrl)
             .map((response: Response) => <Planning[]>response.json())
             .catch(this.handleError);
