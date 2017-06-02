@@ -36,7 +36,8 @@ var PlanningComponent = (function () {
         this.nomCollaborateur = '';
         this.dataDissmiss = '';
         this.filterQuery = "";
-        this.debut = 0;
+        this.debutPro = 0;
+        this.debutColab = 0;
     }
     PlanningComponent.prototype.testUpdate = function () {
         var _this = this;
@@ -44,18 +45,21 @@ var PlanningComponent = (function () {
         for (var _i = 0, _a = this.affecterUpdate; _i < _a.length; _i++) {
             var affecter = _a[_i];
             var id = 'u_' + affecter.collaborateur.idCollaborateur + '_' + affecter.projet.idProjet + '_' + affecter.semaine.idSemaine;
-            var test = +document.getElementById(id).value;
             var test2 = document.getElementById(id).value;
             if (test2 === '') {
                 this.msgError = 'Nombre jour ne doit pas ete vide';
                 this.dataDissmiss = '';
-                setInterval(function () { _this.msgError = ''; }, 5000);
+                setInterval(function () {
+                    _this.msgError = '';
+                }, 5000);
                 existZero = true;
             }
             else if (test2 === '0') {
                 this.msgError = 'Nombre jour ne doit pas ete 0';
                 this.dataDissmiss = '';
-                setInterval(function () { _this.msgError = ''; }, 5000);
+                setInterval(function () {
+                    _this.msgError = '';
+                }, 5000);
                 existZero = true;
             }
         }
@@ -64,12 +68,12 @@ var PlanningComponent = (function () {
                 var affecter = _c[_b];
                 var id = 'u_' + affecter.collaborateur.idCollaborateur + '_' + affecter.projet.idProjet + '_' + affecter.semaine.idSemaine;
                 var test = +document.getElementById(id).value;
-                var test2 = document.getElementById(id).value;
-                console.log(test);
                 this._affecterService.addAffectation(affecter.collaborateur.idCollaborateur, affecter.projet.idProjet, affecter.semaine.idSemaine, test).subscribe(function (data) {
                     _this.reponse = data;
                     _this.ngOnInit();
-                }, function (error) { console.log(error); });
+                }, function (error) {
+                    console.log(error);
+                });
             }
             this.dataDissmiss = 'modal';
         }
@@ -143,8 +147,8 @@ var PlanningComponent = (function () {
                     affecterF.semaine.idSemaine == idSemaine) {
                     this.afficherInformation(affecterF.collaborateur.idCollaborateur, affecterF.semaine.idSemaine, affecterF.projet.idProjet, affecterF.semaine.nbrJour);
                     /*setTimeout(() => {
-                        this.changerCouleur(affecterF.collaborateur.idCollaborateur, affecterF.semaine.idSemaine, affecterF.projet.idProjet, affecterF.semaine.nbrJour);
-                    }, 1000);*/
+                     this.changerCouleur(affecterF.collaborateur.idCollaborateur, affecterF.semaine.idSemaine, affecterF.projet.idProjet, affecterF.semaine.nbrJour);
+                     }, 1000);*/
                 }
             }
         }
@@ -174,8 +178,8 @@ var PlanningComponent = (function () {
         var _this = this;
         if (this.pagination.pages.length > this.pagination.page + 1) {
             this.pagination.page++;
-            this.debut = this.debut + this.pagination.semainePage.length;
-            console.log('Next : ' + this.debut);
+            this.debutPro = this.debutPro + this.pagination.semainePage.length;
+            this.debutColab = this.debutColab + this.pagination.semainePage.length;
             this.pagination.selectdPage = this.pagination.pages[this.pagination.page];
             var start_1 = 0;
             this.pagination.pages.forEach(function (b, index) { return start_1 += index < _this.pagination.page ? b.reduce(function (a1, b1) { return a1 + b1.nbrSemaine; }, 0) : 0; });
@@ -198,8 +202,8 @@ var PlanningComponent = (function () {
             var start_2 = 0;
             this.pagination.pages.forEach(function (b, index) { return start_2 += index < _this.pagination.page ? b.reduce(function (a1, b1) { return a1 + b1.nbrSemaine; }, 0) : 0; });
             this.pagination.semainePage = this.semaines.slice(start_2, start_2 + this.pagination.selectdPage.reduce(function (a, b) { return a + b.nbrSemaine; }, 0));
-            this.debut = this.debut - this.pagination.semainePage.length;
-            console.log('Preview : ' + this.debut);
+            this.debutPro = this.debutPro - this.pagination.semainePage.length;
+            this.debutColab = this.debutColab - this.pagination.semainePage.length;
         }
         if (this.pagination.page == 0) {
             document.getElementById("next").disabled = false;
@@ -210,48 +214,7 @@ var PlanningComponent = (function () {
             document.getElementById("previews").disabled = false;
         }
     };
-    PlanningComponent.prototype.recupererTable = function () {
-        var test = document.getElementById('tablePlanning').innerHTML;
-        console.log(test);
-    };
     PlanningComponent.prototype.exportToCSV = function () {
-        /*var csvContent1 = [
-            {
-                "idColaborateur": 1,
-                "idSemaine": 1,
-                "idProjet": 1,
-                "information": "Projet 1, Nombre jour : 1",
-                "nbrJourTotal": 1
-            },
-            {
-                "idColaborateur": 1,
-                "idSemaine": 2,
-                "idProjet": 1,
-                "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 6",
-                "nbrJourTotal": 8
-            }];
-        //create column_names here, sep by commas, append them to "csvContent", end with /n
-        //create your data rows sep by commas & quoted, end with /n
-        var filename = ('title').replace(/ /g, '_') + '.csv'; //gen a filename using the title but getting rid of spaces
-        var blob = new Blob([csvContent1,', test'], { "type": 'text/csv;charset=utf-8;' });
-        if (navigator.msSaveBlob) { // IE 10+
-            navigator.msSaveBlob(blob, filename);
-        }
-        else //create a link and click it
-        {
-            var link = document.createElement("a");
-            if (link.download !== undefined) // feature detection
-            {
-                // Browsers that support HTML5 download attribute
-                var url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", filename);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }*/
     };
     PlanningComponent.prototype.addPlanification = function (idCollaborateur, idProjet, idSemaine, event) {
         var _this = this;
@@ -274,7 +237,9 @@ var PlanningComponent = (function () {
                     document.getElementById('i_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = 'none';
                     document.getElementById('i_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.color = _this.reponse.msgError;
                     document.getElementById('s_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = '';
-                }, function (error) { console.log(error); });
+                }, function (error) {
+                    console.log(error);
+                });
             }
             else if (event.target.value !== '0' && exist === false) {
                 this._affecterService.addAffectation(idCollaborateur, idProjet, idSemaine, event.target.value).subscribe(function (data) {
@@ -284,7 +249,9 @@ var PlanningComponent = (function () {
                     document.getElementById('i_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = 'none';
                     document.getElementById('i_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.color = _this.reponse.msgError;
                     document.getElementById('s_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = '';
-                }, function (error) { console.log(error); });
+                }, function (error) {
+                    console.log(error);
+                });
             }
             else if (event.target.value === '0' && exist === false) {
                 document.getElementById('i_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = 'none';
@@ -299,11 +266,13 @@ var PlanningComponent = (function () {
         var _this = this;
         this._planninfService.getPlanningById(this.idPlanning).subscribe(function (data) {
             _this.planning = data;
-            console.log(_this.planning.anneeDebut);
         });
         this._collaborateurProjetService.getCollaborateurProjetByPlanning(this.idPlanning).subscribe(function (data) { return _this.affecterF = data; });
         this._planninfService.getPlanningProjets(this.idPlanning).subscribe(function (data) {
             _this.plannigProjets = data;
+        });
+        this._planninfService.getPlanningCollaborateurs(this.idPlanning).subscribe(function (data) {
+            _this.planningCollaborateurs = data;
         });
         this._planificationService.getPlanificationByPlanning(this.idPlanning).subscribe(function (data) { return _this.planification = data; });
         this._semaineService.getMois(this.idPlanning).subscribe(function (data) {
@@ -325,7 +294,8 @@ var PlanningComponent = (function () {
                 var start = 0;
                 _this.pagination.pages.forEach(function (b, index) { return start += index < _this.pagination.page ? b.reduce(function (a1, b1) { return a1 + b1.nbrSemaine; }, 0) : 0; });
                 _this.pagination.semainePage = _this.semaines.slice(start, start + _this.pagination.selectdPage.reduce(function (a, b) { return a + b.nbrSemaine; }, 0));
-                _this.debut = 0;
+                _this.debutPro = 0;
+                _this.debutColab = 0;
             });
         });
     };

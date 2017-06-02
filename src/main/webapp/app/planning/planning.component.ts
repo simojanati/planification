@@ -1,22 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import { PlanningService } from './../model/Planning.service';
-import { PlanningProjetlist } from './../model/PlanningProjetList';
-import { Planning } from './../model/Planning';
-import { Projet } from './../model/Projet';
-import { PlanificationService } from './../model/Planification.service';
-import { Planification } from './../model/Planification';
-import { Affecter } from './../model/Affecter';
-import { AffecterService } from './../model/Affecter.service';
-import { CollaborateurProjet } from './../model/CollaborateurProjet';
-import { CollaborateurProjetService } from './../model/CollaborateurProjet.service';
-import { SemaineService } from './../model/Semaine.service';
-import { Semaine } from './../model/Semaine';
-import { MsgError } from './../model/MsgError';
-import { DisplayMois } from './../model/DisplayMois';
-import { PaginationMois } from './../model/PaginationMois';
-import { CollaborateurSemaine } from './../model/CollaborateurSemaine'
-import { CollaborateurSemaineService } from './../model/CollaborateurSemaine.service'
+import {Component, OnInit} from '@angular/core';
+import {PlanningService} from './../model/Planning.service';
+import {PlanningProjetlist} from './../model/PlanningProjetList';
+import {PlanningCollaborateurList} from './../model/PlanningCollaborateurList';
+import {Planning} from './../model/Planning';
+import {PlanificationService} from './../model/Planification.service';
+import {Planification} from './../model/Planification';
+import {Affecter} from './../model/Affecter';
+import {AffecterService} from './../model/Affecter.service';
+import {CollaborateurProjet} from './../model/CollaborateurProjet';
+import {CollaborateurProjetService} from './../model/CollaborateurProjet.service';
+import {SemaineService} from './../model/Semaine.service';
+import {Semaine} from './../model/Semaine';
+import {MsgError} from './../model/MsgError';
+import {DisplayMois} from './../model/DisplayMois';
+import {PaginationMois} from './../model/PaginationMois';
+import {CollaborateurSemaine} from './../model/CollaborateurSemaine'
+import {CollaborateurSemaineService} from './../model/CollaborateurSemaine.service'
+import {PlanningCollaborateur} from "../model/PlanningCollaborateur";
 
 @Component({
     templateUrl: 'app/planning/planning.component.html'
@@ -44,33 +44,35 @@ export class PlanningComponent implements OnInit {
     nomCollaborateur: string = '';
     dataDissmiss: string = '';
     plannigProjets: PlanningProjetlist[];
+    planningCollaborateurs: PlanningCollaborateurList[];
     radio: string;
     filterQuery = "";
 
     constructor(private _planninfService: PlanningService, private _planificationService: PlanificationService,
-        private _semaineService: SemaineService, private _affecterService: AffecterService,
-        private _collaborateurProjetService: CollaborateurProjetService,
-        private _collaborateurSemaineService: CollaborateurSemaineService) {
+                private _semaineService: SemaineService, private _affecterService: AffecterService,
+                private _collaborateurProjetService: CollaborateurProjetService,
+                private _collaborateurSemaineService: CollaborateurSemaineService) {
     }
 
 
-
     testUpdate() {
-
         var existZero: boolean = false;
         for (let affecter of this.affecterUpdate) {
             let id = 'u_' + affecter.collaborateur.idCollaborateur + '_' + affecter.projet.idProjet + '_' + affecter.semaine.idSemaine;
-            var test: number = +(<HTMLInputElement>document.getElementById(id)).value;
             var test2 = (<HTMLInputElement>document.getElementById(id)).value;
             if (test2 === '') {
                 this.msgError = 'Nombre jour ne doit pas ete vide';
                 this.dataDissmiss = '';
-                setInterval(() => { this.msgError = ''; }, 5000);
+                setInterval(() => {
+                    this.msgError = '';
+                }, 5000);
                 existZero = true;
             } else if (test2 === '0') {
                 this.msgError = 'Nombre jour ne doit pas ete 0';
                 this.dataDissmiss = '';
-                setInterval(() => { this.msgError = ''; }, 5000);
+                setInterval(() => {
+                    this.msgError = '';
+                }, 5000);
                 existZero = true;
             }
         }
@@ -78,14 +80,14 @@ export class PlanningComponent implements OnInit {
             for (let affecter of this.affecterUpdate) {
                 let id = 'u_' + affecter.collaborateur.idCollaborateur + '_' + affecter.projet.idProjet + '_' + affecter.semaine.idSemaine;
                 var test: number = +(<HTMLInputElement>document.getElementById(id)).value;
-                var test2 = (<HTMLInputElement>document.getElementById(id)).value;
-                console.log(test);
                 this._affecterService.addAffectation(affecter.collaborateur.idCollaborateur, affecter.projet.idProjet, affecter.semaine.idSemaine, test).subscribe(
                     (data) => {
                         this.reponse = data;
                         this.ngOnInit();
                     },
-                    (error) => { console.log(error) });
+                    (error) => {
+                        console.log(error)
+                    });
 
             }
             this.dataDissmiss = 'modal';
@@ -97,7 +99,6 @@ export class PlanningComponent implements OnInit {
         this._affecterService.getAffectations().subscribe(data => this.affecters = data);
         this._collaborateurSemaineService.getCollaborateurSemaine().subscribe(data => this.collaborateurSemaine = data);
     }
-
 
 
     getUpdate(idCollaborateur: number, idSemaine: number, idProjet: number) {
@@ -163,8 +164,8 @@ export class PlanningComponent implements OnInit {
                 ) {
                     this.afficherInformation(affecterF.collaborateur.idCollaborateur, affecterF.semaine.idSemaine, affecterF.projet.idProjet, affecterF.semaine.nbrJour);
                     /*setTimeout(() => {
-                        this.changerCouleur(affecterF.collaborateur.idCollaborateur, affecterF.semaine.idSemaine, affecterF.projet.idProjet, affecterF.semaine.nbrJour);
-                    }, 1000);*/
+                     this.changerCouleur(affecterF.collaborateur.idCollaborateur, affecterF.semaine.idSemaine, affecterF.projet.idProjet, affecterF.semaine.nbrJour);
+                     }, 1000);*/
                 }
             }
         }
@@ -194,15 +195,16 @@ export class PlanningComponent implements OnInit {
     nextPage() {
         if (this.pagination.pages.length > this.pagination.page + 1) {
             this.pagination.page++;
-            this.debut = this.debut + this.pagination.semainePage.length;
-            console.log('Next : ' + this.debut);
+            this.debutPro = this.debutPro + this.pagination.semainePage.length;
+            this.debutColab = this.debutColab + this.pagination.semainePage.length;
             this.pagination.selectdPage = this.pagination.pages[this.pagination.page];
             let start = 0;
             this.pagination.pages.forEach((b, index) => start += index < this.pagination.page ? b.reduce((a1, b1) => a1 + b1.nbrSemaine, 0) : 0);
             this.pagination.semainePage = this.semaines.slice(start, start + this.pagination.selectdPage.reduce((a, b) => a + b.nbrSemaine, 0));
 
 
-        } if (this.pagination.pages.length == this.pagination.page + 1) {
+        }
+        if (this.pagination.pages.length == this.pagination.page + 1) {
 
             (<HTMLInputElement>document.getElementById("next")).disabled = true;
             (<HTMLInputElement>document.getElementById("previews")).disabled = false;
@@ -220,9 +222,10 @@ export class PlanningComponent implements OnInit {
             let start = 0;
             this.pagination.pages.forEach((b, index) => start += index < this.pagination.page ? b.reduce((a1, b1) => a1 + b1.nbrSemaine, 0) : 0);
             this.pagination.semainePage = this.semaines.slice(start, start + this.pagination.selectdPage.reduce((a, b) => a + b.nbrSemaine, 0));
-            this.debut = this.debut - this.pagination.semainePage.length;
-            console.log('Preview : ' + this.debut);
-        } if (this.pagination.page == 0) {
+            this.debutPro = this.debutPro - this.pagination.semainePage.length;
+            this.debutColab = this.debutColab - this.pagination.semainePage.length;
+        }
+        if (this.pagination.page == 0) {
 
             (<HTMLInputElement>document.getElementById("next")).disabled = false;
             (<HTMLInputElement>document.getElementById("previews")).disabled = true;
@@ -232,49 +235,8 @@ export class PlanningComponent implements OnInit {
         }
     }
 
-    recupererTable() {
-        var test = document.getElementById('tablePlanning').innerHTML;
-        console.log(test);
-    }
-
     exportToCSV() {
-        /*var csvContent1 = [
-            {
-                "idColaborateur": 1,
-                "idSemaine": 1,
-                "idProjet": 1,
-                "information": "Projet 1, Nombre jour : 1",
-                "nbrJourTotal": 1
-            },
-            {
-                "idColaborateur": 1,
-                "idSemaine": 2,
-                "idProjet": 1,
-                "information": "Projet 1, Nombre jour : 2<br/>Projet 2, Nombre jour : 6",
-                "nbrJourTotal": 8
-            }];
-        //create column_names here, sep by commas, append them to "csvContent", end with /n
-        //create your data rows sep by commas & quoted, end with /n
-        var filename = ('title').replace(/ /g, '_') + '.csv'; //gen a filename using the title but getting rid of spaces
-        var blob = new Blob([csvContent1,', test'], { "type": 'text/csv;charset=utf-8;' });
-        if (navigator.msSaveBlob) { // IE 10+
-            navigator.msSaveBlob(blob, filename);
-        }
-        else //create a link and click it
-        {
-            var link = document.createElement("a");
-            if (link.download !== undefined) // feature detection
-            {
-                // Browsers that support HTML5 download attribute
-                var url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", filename);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }*/
+
     }
 
     addPlanification(idCollaborateur: number, idProjet: number, idSemaine: number, event: any) {
@@ -300,7 +262,9 @@ export class PlanningComponent implements OnInit {
                         document.getElementById('s_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = '';
 
                     },
-                    (error) => { console.log(error) });
+                    (error) => {
+                        console.log(error)
+                    });
             } else if (event.target.value !== '0' && exist === false) {
                 this._affecterService.addAffectation(idCollaborateur, idProjet, idSemaine, event.target.value).subscribe(
                     (data) => {
@@ -312,7 +276,9 @@ export class PlanningComponent implements OnInit {
                         document.getElementById('s_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = '';
 
                     },
-                    (error) => { console.log(error) });
+                    (error) => {
+                        console.log(error)
+                    });
             } else if (event.target.value === '0' && exist === false) {
                 document.getElementById('i_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = 'none';
                 document.getElementById('s_' + idCollaborateur + '_' + idProjet + '_' + idSemaine).style.display = '';
@@ -325,16 +291,19 @@ export class PlanningComponent implements OnInit {
         }
     }
 
-    debut: number = 0;
+    debutPro: number = 0;
+    debutColab: number = 0;
 
     chargementDonnees() {
         this._planninfService.getPlanningById(this.idPlanning).subscribe((data) => {
-                    this.planning = data;
-                    console.log(this.planning.anneeDebut);
-                });
+            this.planning = data;
+        });
         this._collaborateurProjetService.getCollaborateurProjetByPlanning(this.idPlanning).subscribe(data => this.affecterF = data);
         this._planninfService.getPlanningProjets(this.idPlanning).subscribe((data) => {
             this.plannigProjets = data;
+        });
+        this._planninfService.getPlanningCollaborateurs(this.idPlanning).subscribe((data) => {
+            this.planningCollaborateurs = data;
         });
         this._planificationService.getPlanificationByPlanning(this.idPlanning).subscribe(data => this.planification = data);
         this._semaineService.getMois(this.idPlanning).subscribe((data) => {
@@ -358,7 +327,9 @@ export class PlanningComponent implements OnInit {
                 let start = 0;
                 this.pagination.pages.forEach((b, index) => start += index < this.pagination.page ? b.reduce((a1, b1) => a1 + b1.nbrSemaine, 0) : 0);
                 this.pagination.semainePage = this.semaines.slice(start, start + this.pagination.selectdPage.reduce((a, b) => a + b.nbrSemaine, 0));
-                this.debut = 0;
+                this.debutPro = 0;
+                this.debutColab = 0;
+                
             });
         });
 

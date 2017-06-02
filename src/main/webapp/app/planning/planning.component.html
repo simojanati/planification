@@ -12,7 +12,7 @@
             <form class="form-search">
                 <span class="input-icon">
                     <input type="text" placeholder="Search ..." class="nav-search-input"
-					   id="nav-search-input" autocomplete="off"/>
+                           id="nav-search-input" autocomplete="off"/>
                     <i class="ace-icon fa fa-search nav-search-icon"></i>
                 </span>
             </form>
@@ -30,9 +30,12 @@
                         <div class="form-group">
                             <label for="mois1" class="col-sm-2 control-label">Planning : </label>
                             <div class="col-sm-4">
-                                <select class="form-control" [(ngModel)]='idPlanning' (keyup)="chargementDonnees();afficherAffectation();" id="mois1">
-                                        <option  *ngFor="let p of plannings; let i = index"  value="{{p.idPlanning}}">{{p.nomPlanning}}</option>
-                                    </select>
+                                <select class="form-control" [(ngModel)]='idPlanning'
+                                        (keyup)="chargementDonnees();afficherAffectation();" id="mois1">
+                                    <option *ngFor="let p of plannings; let i = index" value="{{p.idPlanning}}">
+                                        {{p.nomPlanning}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -40,132 +43,159 @@
                             <div class="col-sm-6">
                                 <div class="radio" style="float: left">
                                     <label>
-											<input name="form-field-radio"  [(ngModel)]='radio' value="plan" type="radio" class="ace" checked/>
-											<span class="lbl"> Collaborateurs & Projets</span>
-										</label>
+                                        <input name="form-field-radio" [(ngModel)]='radio' value="plan" type="radio"
+                                               class="ace" checked/>
+                                        <span class="lbl"> Collaborateurs & Projets</span>
+                                    </label>
                                 </div>
 
                                 <div class="radio" style="float: left">
                                     <label>
-											<input name="form-field-radio"  [(ngModel)]='radio' value="pro" type="radio" class="ace" />
-											<span class="lbl"> Projets</span>
-										</label>
+                                        <input name="form-field-radio" [(ngModel)]='radio' value="pro" type="radio"
+                                               class="ace"/>
+                                        <span class="lbl"> Projets</span>
+                                    </label>
                                 </div>
 
                                 <div class="radio" style="float: left">
                                     <label>
-											<input name="form-field-radio"  [(ngModel)]='radio' value="colab" type="radio" class="ace" />
-											<span class="lbl"> Collaborateurs</span>
-										</label>
+                                        <input name="form-field-radio" [(ngModel)]='radio' value="colab" type="radio"
+                                               class="ace"/>
+                                        <span class="lbl"> Collaborateurs</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <button (click)='chargementDonnees();afficherAffectation();' class="btn btn-app btn-inverse btn-xs">
-                                    <i class="ace-icon fa fa-eye bigger-160"></i>
-                                    Afficher
-                                </button>
+                            <button (click)='chargementDonnees();afficherAffectation();'
+                                    class="btn btn-app btn-inverse btn-xs">
+                                <i class="ace-icon fa fa-eye bigger-160"></i>
+                                Afficher
+                            </button>
                         </div>
                     </div>
                     <br><br><br><br>
                     <br><br>
                     <div *ngIf="planning != null" style="text-align: center">
-                        De <span style="font-size: 16px"><b>{{planning.moisDebut.mois}}/{{planning.anneeDebut.annee}}</b></span>                        jusqu'à <span style="font-size: 16px"><b>{{planning.moisFin.mois}}/{{planning.anneeFin.annee}}</b></span>
+                        De <span
+                            style="font-size: 16px"><b>{{planning.moisDebut.mois}}/{{planning.anneeDebut.annee}}</b></span>
+                        jusqu'à <span
+                            style="font-size: 16px"><b>{{planning.moisFin.mois}}/{{planning.anneeFin.annee}}</b></span>
                     </div>
-                    <div class="row" ng-if="vide" *ngIf="semaines?.length > 0 && radio == 'plan'">
+                    <div class="row" *ngIf="semaines?.length > 0 && radio == 'plan'">
 
                         <div class="col-lg-16">
                             <div class="card">
                                 <div>
-                                    <button (click)="previews()" id="previews" style="width: 120px" disabled *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-left">
-                                            Précedant
-                                        </button>
+                                    <button (click)="previews()" id="previews" style="width: 120px" disabled
+                                            *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-left">
+                                        Précedant
+                                    </button>
 
-                                    <button (click)="nextPage()" id="next" style="width: 120px" *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-right">
-                                            Suivant
-                                        </button>
+                                    <button (click)="nextPage()" id="next" style="width: 120px" *ngIf="buttonActive > 1"
+                                            class="btn btn-app btn-inverse btn-xs pull-right">
+                                        Suivant
+                                    </button>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped" id="tablePlanning">
                                         <thead>
-                                            <tr>
-                                                <th colspan="17">
-                                                    Filtrer par Titre du projet:
-                                                    <input class="form-control" [(ngModel)]="filterQuery" /> {{filterQuery}}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2"></th>
-                                                <th *ngFor="let m of pagination.selectdPage" attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Numéro de la semaine</th>
-                                                <th *ngFor="let s of pagination.semainePage">{{s.numeroSemaine}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Nbr jours de travail</th>
-                                                <th *ngFor="let s of pagination.semainePage">{{s.nbrJour}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th id="collab" style="width: 300px">Collaborateur</th>
-                                                <th id="projet">Projet</th>
-                                                <th id="champ" *ngFor="let s of pagination.semainePage">
-                                                    <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
-                                                        {{s.jourDebut}} - {{s.jourFin}}
-                                                    </div>
-                                                    <div *ngIf="s.jourFin==s.jourDebut || s.jourDebut==0">
-                                                        {{s.jourFin}}
-                                                    </div>
-                                                </th>
-                                            </tr>
+                                        <tr>
+                                            <th colspan="17">
+                                                Filtrer par Titre du projet:
+                                                <input class="form-control" [(ngModel)]="filterQuery"/> {{filterQuery}}
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <th *ngFor="let m of pagination.selectdPage"
+                                                attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Numéro de la semaine</th>
+                                            <th *ngFor="let s of pagination.semainePage">{{s.numeroSemaine}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Nbr jours de travail</th>
+                                            <th *ngFor="let s of pagination.semainePage">{{s.nbrJour}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th id="collab" style="width: 300px">Collaborateur</th>
+                                            <th id="projet">Projet</th>
+                                            <th id="champ" *ngFor="let s of pagination.semainePage">
+                                                <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
+                                                    {{s.jourDebut}} - {{s.jourFin}}
+                                                </div>
+                                                <div *ngIf="s.jourFin==s.jourDebut || s.jourDebut==0">
+                                                    {{s.jourFin}}
+                                                </div>
+                                            </th>
+                                        </tr>
 
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let p of affecterF">
-                                                <td id="collab">{{p.collaborateur.nom}} {{p.collaborateur.prenom}}</td>
-                                                <td id="projet">{{p.projet.titreProjet}}</td>
-                                                <td *ngFor="let s of pagination.semainePage; let i = index">
+                                        <tr *ngFor="let p of affecterF">
+                                            <td id="collab">{{p.collaborateur.nom}} {{p.collaborateur.prenom}}</td>
+                                            <td id="projet">{{p.projet.titreProjet}}</td>
+                                            <td *ngFor="let s of pagination.semainePage; let i = index">
 
-                                                    <div *ngIf="existeAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine) == null">
-                                                        <input type="number" id="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}" class="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            value="" name="{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            style="display:none;" (keyup.enter)="addPlanification(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine,$event)"
-                                                        />
-                                                        <span id="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}" class="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            title="Nombre de jour de travail sur le projet <{{p.projet.titreProjet}}> est : 0"
-                                                            onclick="afficher_input(this)">0</span>
-                                                    </div>
+                                                <div *ngIf="existeAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine) == null">
+                                                    <input type="number"
+                                                           id="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                           class="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                           value=""
+                                                           name="{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                           style="display:none;"
+                                                           (keyup.enter)="addPlanification(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine,$event)"
+                                                    />
+                                                    <span id="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                          class="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                          title="Nombre de jour de travail sur le projet <{{p.projet.titreProjet}}> est : 0"
+                                                          onclick="afficher_input(this)">0</span>
+                                                </div>
 
-                                                    <div id="champ_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}" style="width: 100%;height: 100%; Font-Weight:900"
-                                                        *ngIf="existeAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine) != null ">
-                                                        <input type="number" id="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}" class="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            value="" name="{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            style="display:none;" (keyup.enter)="addPlanification(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine,$event);afficherAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine,s.NumeroSemaine);"
-                                                        />
-                                                        <tooltip-content #myTooltip [animation]="true" placement="top">
-                                                            <div id="t_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"></div>
-                                                        </tooltip-content>
-                                                        <span [contextmenu]="[contextmenu]" [tooltip]="myTooltip" id="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            class="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
-                                                            onclick="afficher_input(this)">{{afficherAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine).nbrJour}}</span>
-                                                    </div>
+                                                <div id="champ_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                     style="width: 100%;height: 100%; Font-Weight:900"
+                                                     *ngIf="existeAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine) != null ">
+                                                    <input type="number"
+                                                           id="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                           class="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                           value=""
+                                                           name="{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                           style="display:none;"
+                                                           (keyup.enter)="addPlanification(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine,$event);afficherAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine,s.NumeroSemaine);"
+                                                    />
+                                                    <tooltip-content #myTooltip [animation]="true" placement="top">
+                                                        <div id="t_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"></div>
+                                                    </tooltip-content>
+                                                    <span [contextmenu]="[contextmenu]" [tooltip]="myTooltip"
+                                                          id="s_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                          class="i_{{p.collaborateur.idCollaborateur}}_{{p.projet.idProjet}}_{{s.idSemaine}}"
+                                                          onclick="afficher_input(this)">{{afficherAffectation(p.collaborateur.idCollaborateur,p.projet.idProjet,s.idSemaine).nbrJour}}</span>
+                                                </div>
 
-                                                    <contextmenu #contextmenu>
-                                                        <div class="dropdown open">
-                                                            <div data-toggle="modal" [attr.data-target]="'#myModal'" (click)="getUpdate(p.collaborateur.idCollaborateur, s.idSemaine, p.projet.idProjet)"
-                                                                id="clickDroit" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                &nbsp;&nbsp;<i class="ace-icon fa fa-pencil bigger-130"></i>                                                                Modifier
-                                                            </div>
+                                                <contextmenu #contextmenu>
+                                                    <div class="dropdown open">
+                                                        <div data-toggle="modal" [attr.data-target]="'#myModal'"
+                                                             (click)="getUpdate(p.collaborateur.idCollaborateur, s.idSemaine, p.projet.idProjet)"
+                                                             id="clickDroit" class="dropdown-menu"
+                                                             aria-labelledby="dropdownMenuButton">
+                                                            &nbsp;&nbsp;<i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                            Modifier
                                                         </div>
-                                                    </contextmenu>
-                                                </td>
+                                                    </div>
+                                                </contextmenu>
+                                            </td>
 
-                                            </tr>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div class="btn-toolbar">
                                         <div *ngIf="buttonActive > 1" class="btn-group btn-corner">
-                                            <button class="btn btn-primary" (click)="afficherPage(i)" *ngFor="let p of pagination.pages; let i = index">{{i+1}}</button>
+                                            <button class="btn btn-primary" (click)="afficherPage(i)"
+                                                    *ngFor="let p of pagination.pages; let i = index">{{i+1}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="modal fade" id="myModal" role="dialog">
@@ -173,8 +203,10 @@
                                             <!-- Modal content-->
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Collaborateur : <b>{{nomCollaborateur}}</b></h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;
+                                                    </button>
+                                                    <h4 class="modal-title">Collaborateur : <b>{{nomCollaborateur}}</b>
+                                                    </h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="row">
@@ -182,25 +214,31 @@
                                                             <!-- PAGE CONTENT BEGINS -->
                                                             <div class="form-horizontal">
                                                                 <div class="space-6"></div>
-                                                                <div class="form-group" *ngFor="let a of affecterUpdate; let i = index">
-                                                                    <label class="col-sm-3 control-label no-padding-right"> {{a.projet.titreProjet}} </label>
+                                                                <div class="form-group"
+                                                                     *ngFor="let a of affecterUpdate; let i = index">
+                                                                    <label class="col-sm-3 control-label no-padding-right">
+                                                                        {{a.projet.titreProjet}} </label>
 
                                                                     <div class="col-sm-7">
-                                                                        <input type="number" id="u_{{a.collaborateur.idCollaborateur}}_{{a.projet.idProjet}}_{{a.semaine.idSemaine}}" class="col-xs-10 col-sm-10"
-                                                                            value="{{a.nbrJour}}" />
+                                                                        <input type="number"
+                                                                               id="u_{{a.collaborateur.idCollaborateur}}_{{a.projet.idProjet}}_{{a.semaine.idSemaine}}"
+                                                                               class="col-xs-10 col-sm-10"
+                                                                               value="{{a.nbrJour}}"/>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="form-group text-center">
-                                                                    <div class="alert alert-danger" *ngIf="msgError!=''">
-                                                                        <button type="button" class="close" data-dismiss="alert">
-												                        <i class="ace-icon fa fa-times"></i>
-											                            </button>
+                                                                    <div class="alert alert-danger"
+                                                                         *ngIf="msgError!=''">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="alert">
+                                                                            <i class="ace-icon fa fa-times"></i>
+                                                                        </button>
                                                                         <strong>
-												                            <i class="ace-icon fa fa-times"></i>
-												                                ERROR ! 
-											                            </strong>                                                                        {{msgError}}
-                                                                        <br />
+                                                                            <i class="ace-icon fa fa-times"></i>
+                                                                            ERROR !
+                                                                        </strong> {{msgError}}
+                                                                        <br/>
                                                                     </div>
                                                                 </div>
                                                                 <!-- PAGE CONTENT ENDS -->
@@ -209,101 +247,84 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success" (click)="testUpdate()" [attr.data-dismiss]="dataDissmiss">Modifier</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
+                                                    <button type="button" class="btn btn-success" (click)="testUpdate()"
+                                                            [attr.data-dismiss]="dataDissmiss">Modifier
+                                                    </button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        Quitter
+                                                    </button>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-
-                                    <!--<div style="margin-top: 20px" *ngIf="update == true">
-                                        <div>
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="2">{{nomCollaborateur}}</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Projet</th>
-                                                        <th>Nbr Jour</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let a of affecterUpdate; let i = index">
-                                                        <td>{{a.projet.titreProjet}}</td>
-                                                        <td><input id="u_{{a.collaborateur.idCollaborateur}}_{{a.projet.idProjet}}_{{a.semaine.idSemaine}}" style="width: 50px" type="text" value="{{a.nbrJour}}" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2"><a title="Modifier" class="green" style="cursor: pointer" (click)="testUpdate()">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
-																</a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>-->
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row" ng-if="vide" *ngIf="semaines?.length > 0 && radio == 'pro'">
+                    <div class="row" *ngIf="semaines?.length > 0 && radio == 'pro'">
 
                         <div class="col-lg-16">
                             <div class="card">
                                 <div>
-                                    <button (click)="previews()" id="previews" style="width: 120px" disabled *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-left">
-                                            Précedant
-                                        </button>
-                                    <button (click)="nextPage()" id="next" style="width: 120px" *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-right">
-                                            Suivant
-                                        </button>
+                                    <button (click)="previews()" id="previews" style="width: 120px" disabled
+                                            *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-left">
+                                        Précedant
+                                    </button>
+                                    <button (click)="nextPage()" id="next" style="width: 120px" *ngIf="buttonActive > 1"
+                                            class="btn btn-app btn-inverse btn-xs pull-right">
+                                        Suivant
+                                    </button>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped" id="tablePlanning">
                                         <thead>
-                                            <tr>
-                                                <th colspan="2"></th>
-                                                <th *ngFor="let m of pagination.selectdPage" attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Numéro de la semaine</th>
-                                                <th *ngFor="let s of pagination.semainePage">{{s.numeroSemaine}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Nbr jours de travail</th>
-                                                <th *ngFor="let s of pagination.semainePage">{{s.nbrJour}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th id="projet" style="width: 250px">Projets</th>
-                                                <th id="nbrTotal" style="width: 100px">Nbr Total</th>
-                                                <th id="champ" *ngFor="let s of pagination.semainePage">
-                                                    <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
-                                                        {{s.jourDebut}} - {{s.jourFin}}
-                                                    </div>
-                                                    <div *ngIf="s.jourFin==s.jourDebut || s.jourDebut==0">
-                                                        {{s.jourFin}}
-                                                    </div>
-                                                </th>
-                                            </tr>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <th *ngFor="let m of pagination.selectdPage"
+                                                attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Numéro de la semaine</th>
+                                            <th *ngFor="let s of pagination.semainePage">{{s.numeroSemaine}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Nbr jours de travail</th>
+                                            <th *ngFor="let s of pagination.semainePage">{{s.nbrJour}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th id="projet" style="width: 250px">Projets</th>
+                                            <th id="nbrTotal" style="width: 100px">Nbr Total</th>
+                                            <th id="champ" *ngFor="let s of pagination.semainePage">
+                                                <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
+                                                    {{s.jourDebut}} - {{s.jourFin}}
+                                                </div>
+                                                <div *ngIf="s.jourFin==s.jourDebut || s.jourDebut==0">
+                                                    {{s.jourFin}}
+                                                </div>
+                                            </th>
+                                        </tr>
 
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let p of plannigProjets; let i = index">
-                                                <td id="projet">{{p.projet.titreProjet}}</td>
-                                                <td id="nbrTotal">{{p.nbrTotal}}</td>
-                                                <td *ngFor="let s of pagination.semainePage; let i = index">
-                                                    <div *ngIf="p.planningProjets[debut+i].nbrTotal != 0" style="background-color: red;color: green;width: 100%;height: 100%; Font-Weight:900">
-                                                        <span><b>{{p.planningProjets[debut+i].nbrTotal}}</b></span>
+                                        <tr *ngFor="let p of plannigProjets; let i = index">
+                                            <td id="projet">{{p.projet.titreProjet}}</td>
+                                            <td id="nbrTotal">{{p.nbrTotal}}</td>
+                                            <td *ngFor="let s of pagination.semainePage; let i = index">
+                                                <div *ngIf="p.planningProjets[debutPro+i].nbrTotal != 0"
+                                                     style="background-color: red;color: green;width: 100%;height: 100%; Font-Weight:900">
+                                                    <span><b>{{p.planningProjets[debutPro+i].nbrTotal}}</b></span>
 
-                                                    </div>
-                                                    <div *ngIf="p.planningProjets[debut+i].nbrTotal == 0" style="width: 100%;height: 100%; Font-Weight:900">
-                                                        <span>{{p.planningProjets[debut+i].nbrTotal}}</span>
-                                                    </div>
-                                                </td>
+                                                </div>
+                                                <div *ngIf="p.planningProjets[debutPro+i].nbrTotal == 0"
+                                                     style="width: 100%;height: 100%; Font-Weight:900">
+                                                    <span>{{p.planningProjets[debutPro+i].nbrTotal}}</span>
+                                                </div>
+                                            </td>
 
-                                            </tr>
+                                        </tr>
                                         </tbody>
                                     </table>
 
@@ -312,62 +333,67 @@
                         </div>
                     </div>
 
-                    <div class="row" ng-if="vide" *ngIf="semaines?.length > 0 && radio == 'colab'">
+                    <div class="row" *ngIf="semaines?.length > 0 && radio == 'colab'">
 
                         <div class="col-lg-16">
                             <div class="card">
                                 <div>
-                                    <button (click)="previews()" id="previews" style="width: 120px" disabled *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-left">
-                                            Précedant
-                                        </button>
-                                    <button (click)="nextPage()" id="next" style="width: 120px" *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-right">
-                                            Suivant
-                                        </button>
+                                    <button (click)="previews()" id="previews" style="width: 120px" disabled
+                                            *ngIf="buttonActive > 1" class="btn btn-app btn-inverse btn-xs pull-left">
+                                        Précedant
+                                    </button>
+                                    <button (click)="nextPage()" id="next" style="width: 120px" *ngIf="buttonActive > 1"
+                                            class="btn btn-app btn-inverse btn-xs pull-right">
+                                        Suivant
+                                    </button>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped" id="tablePlanning">
                                         <thead>
-                                            <tr>
-                                                <th colspan="2"></th>
-                                                <th *ngFor="let m of pagination.selectdPage" attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Numéro de la semaine</th>
-                                                <th *ngFor="let s of pagination.semainePage">{{s.numeroSemaine}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Nbr jours de travail</th>
-                                                <th *ngFor="let s of pagination.semainePage">{{s.nbrJour}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th id="projet" style="width: 250px">Collaborateur</th>
-                                                <th id="nbrTotal" style="width: 100px">Nbr Total</th>
-                                                <th id="champ" *ngFor="let s of pagination.semainePage">
-                                                    <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
-                                                        {{s.jourDebut}} - {{s.jourFin}}
-                                                    </div>
-                                                    <div *ngIf="s.jourFin==s.jourDebut || s.jourDebut==0">
-                                                        {{s.jourFin}}
-                                                    </div>
-                                                </th>
-                                            </tr>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <th *ngFor="let m of pagination.selectdPage"
+                                                attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Numéro de la semaine</th>
+                                            <th *ngFor="let s of pagination.semainePage">{{s.numeroSemaine}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Nbr jours de travail</th>
+                                            <th *ngFor="let s of pagination.semainePage">{{s.nbrJour}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th id="collab" style="width: 250px">Collaborateur</th>
+                                            <th id="nbrTotal" style="width: 100px">Nbr Total</th>
+                                            <th id="champ" *ngFor="let s of pagination.semainePage">
+                                                <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
+                                                    {{s.jourDebut}} - {{s.jourFin}}
+                                                </div>
+                                                <div *ngIf="s.jourFin==s.jourDebut || s.jourDebut==0">
+                                                    {{s.jourFin}}
+                                                </div>
+                                            </th>
+                                        </tr>
 
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let p of plannigProjets; let i = index">
-                                                <td id="projet">{{p.projet.titreProjet}}</td>
-                                                <td id="nbrTotal">{{p.nbrTotal}}</td>
-                                                <td *ngFor="let s of pagination.semainePage; let i = index">
-                                                    <div *ngIf="p.planningProjets[debut+i].nbrTotal != 0" style="background-color: red;color: green;width: 100%;height: 100%; Font-Weight:900">
-                                                        <span><b>{{p.planningProjets[debut+i].nbrTotal}}</b></span>
+                                        <tr *ngFor="let p of planningCollaborateurs; let i = index">
+                                            <td id="projet">{{p.collaborateur.nom}} {{p.collaborateur.prenom}}</td>
+                                            <td id="nbrTotal">{{p.nbrTotal}}</td>
+                                            <td *ngFor="let s of pagination.semainePage; let i = index">
+                                                <div *ngIf="p.planningCollaborateurs[debutColab+i].nbrTotal != 0"
+                                                     style="background-color: red;color: green;width: 100%;height: 100%; Font-Weight:900">
+                                                    <span><b>{{p.planningCollaborateurs[debutColab+i].nbrTotal}}</b></span>
+                                                </div>
+                                                <div *ngIf="p.planningCollaborateurs[debutColab+i].nbrTotal == 0"
+                                                     style="width: 100%;height: 100%; Font-Weight:900">
+                                                    <span>{{p.planningCollaborateurs[debutColab+i].nbrTotal}}</span>
+                                                </div>
+                                            </td>
 
-                                                    </div>
-                                                    <div *ngIf="p.planningProjets[debut+i].nbrTotal == 0" style="width: 100%;height: 100%; Font-Weight:900">
-                                                        <span>{{p.planningProjets[debut+i].nbrTotal}}</span>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
+                                        </tr>
                                         </tbody>
                                     </table>
 

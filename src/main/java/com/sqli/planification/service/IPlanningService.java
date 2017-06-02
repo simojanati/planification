@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sqli.planification.model.Planning;
 import com.sqli.planification.model.Semaine;
+import com.sqli.planification.utils.PlanningCollaborateurList;
 import com.sqli.planification.utils.PlanningProjetsList;
 
 
@@ -21,5 +22,7 @@ public interface IPlanningService
 	
 	public List<Semaine> getSemainesByPlanning(Planning planning);
 	
-	public List<PlanningProjetsList> getPlanningProjets(Long idplanning); 
+	public List<PlanningProjetsList> getPlanningProjets(Long idplanning);
+
+	public List<PlanningCollaborateurList> getPlanningCollaborateurs(Long idplanning);
 }

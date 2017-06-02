@@ -1,7 +1,11 @@
 package com.sqli.planification;
 
+import java.math.BigInteger;
 import java.util.List;
 
+import com.sqli.planification.dao.PlanningRepository;
+import com.sqli.planification.utils.PlanningCollaborateur;
+import com.sqli.planification.utils.PlanningCollaborateurList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,54 +27,54 @@ import com.sqli.planification.utils.IDataToCsv;
 
 
 @SpringBootApplication
-public class SqliProjetApplication implements CommandLineRunner
-{
+public class SqliProjetApplication implements CommandLineRunner {
 
-	@Autowired
-	private ISemaineService semaineService;
+    @Autowired
+    private ISemaineService semaineService;
 
-	@Autowired
-	private IPlanningService planningService;
+    @Autowired
+    private IPlanningService planningService;
 
-	@Autowired
-	private IPlanificationService planificationService;
+    @Autowired
+    private IPlanificationService planificationService;
 
-	@Autowired
-	private PlanificationRepository planificationRepository;
+    @Autowired
+    private PlanificationRepository planificationRepository;
 
-	@Autowired
-	private ICollaborateurService collaborateurService;
+    @Autowired
+    private ICollaborateurService collaborateurService;
 
-	@Autowired
-	private SemaineRepository semaineRepository;
+    @Autowired
+    private SemaineRepository semaineRepository;
 
-	@Autowired
-	private AffecterRepository affecterRepository;
+    @Autowired
+    private AffecterRepository affecterRepository;
 
-	@Autowired
-	private AffecterService affecterService;
+    @Autowired
+    private AffecterService affecterService;
 
-	@Autowired
-	private IProjetService projetService;
+    @Autowired
+    private IProjetService projetService;
 
-	@Autowired
-	private ICollaborateurProjetService collaborateurProjetService;
-	
-	@Autowired
-	private IDataToCsv csv;
-	
+    @Autowired
+    private ICollaborateurProjetService collaborateurProjetService;
 
-	public static void main(String[] args)
-	{
-		SpringApplication.run(SqliProjetApplication.class, args);
-	}
+    @Autowired
+    private IDataToCsv csv;
 
-	@Override
-	public void run(String... arg0) throws Exception
-	{
+    @Autowired
+    private PlanningRepository planningRepository;
 
-		
-		//csv.convert2("excelColabProjet", 4L);
+
+    public static void main(String[] args) {
+        SpringApplication.run(SqliProjetApplication.class, args);
+    }
+
+    @Override
+    public void run(String... arg0) throws Exception {
+
+
+        //csv.convert2("excelColabProjet", 4L);
 
 
 	/*	List<PlanningProjetsList> planningProjets = planningService.getPlanningProjets(1L);
@@ -84,15 +88,24 @@ public class SqliProjetApplication implements CommandLineRunner
 				System.out.println("Semaine : " + p.getSemaine().getIdSemaine() + " - nbrJour : " + p.getNbrTotal());
 			}
 		}
-*/
 
+
+
+        List<PlanningCollaborateurList> planningCollaborateurLists = planningService.getPlanningCollaborateurs(1L);
+
+        for (PlanningCollaborateurList x : planningCollaborateurLists) {
+            System.out.println(x.getCollaborateur().getEmail() + " --> " + x.getNbrTotal());
+            for (PlanningCollaborateur y : x.getPlanningCollaborateurs()) {
+                System.out.println(y.getSemaine().getMois().getMois() + "/" + y.getSemaine().getAnnee().getAnnee() + " --> " + y.getNbrTotal());
+            }
+        }*/
 
 		/*
-		 * List<Planning> plannings = planningService.getAllPlanning(); for (Planning planning : plannings) {
+         * List<Planning> plannings = planningService.getAllPlanning(); for (Planning planning : plannings) {
 		 * System.out.println("-----> "+planning.getNomPlanning()); }
 		 */
-		/*
-		 * Planning planning = planningService.getPlanning(4L); List<Planification> planifications =
+        /*
+         * Planning planning = planningService.getPlanning(4L); List<Planification> planifications =
 		 * planificationService.getPlanificationByPlanning(planning); List<Semaine> semaines =
 		 * planningService.getSemainesByPlanning(planning); List<String> mois =
 		 * semaineService.getMoisByPlanning(planning);
@@ -107,16 +120,16 @@ public class SqliProjetApplication implements CommandLineRunner
 		 * 
 		 * for (String string : mois) { System.out.println("mois :" + string); }
 		 */
-		//Affecter affecter = affecterRepository.addAffectation(1L, 77L, 1L, 2);
+        //Affecter affecter = affecterRepository.addAffectation(1L, 77L, 1L, 2);
 
-		// List<Semaine> semaines = semaineService.getSemaine("2017");
+        // List<Semaine> semaines = semaineService.getSemaine("2017");
 
 		/*
-		 * try { planningService.addPlanning( new Planning("test2", new Mois("Décembre"), new Annee("2017"), new
+         * try { planningService.addPlanning( new Planning("test2", new Mois("Décembre"), new Annee("2017"), new
 		 * Mois("Décembre"), new Annee("2018"))); System.out.println("---------------success-------------"); } catch
 		 * (Exception e) { System.out.println(e.getMessage()); }
 		 */
-		/*
+        /*
 		 * List<Projet> projets = projetService.getProjetNonAffecter(2L); for (Projet projet : projets) {
 		 * System.out.println("----------------------------------------"); System.out.println(projet.getTitreProjet());
 		 * System.out.println("----------------------------------------"); }
@@ -126,5 +139,5 @@ public class SqliProjetApplication implements CommandLineRunner
 		 * List<Affecter> affecters = affecterRepository.getAllAffectation(); for (Affecter affecter : affecters) {
 		 * System.out.println(affecter.getInformation()); }
 		 */
-	}
+    }
 }

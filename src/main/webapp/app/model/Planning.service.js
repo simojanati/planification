@@ -26,6 +26,7 @@ var PlanningService = (function () {
         this._addUrl = this.urlRest.getUrl() + 'planning/addPlanning';
         this._updateUrl = this.urlRest.getUrl() + 'planning/updatePlanning';
         this._PlanningProjetsUrl = this.urlRest.getUrl() + 'planning/getplanningProjets';
+        this._PlanningCollaborateursUrl = this.urlRest.getUrl() + 'planning/getplanningCollaborateurs';
     }
     PlanningService.prototype.getPlanning = function () {
         console.log(this.urlRest.getUrl());
@@ -40,6 +41,11 @@ var PlanningService = (function () {
     };
     PlanningService.prototype.getPlanningProjets = function (idPlanning) {
         return this._http.get(this._PlanningProjetsUrl + '?idPlanning=' + idPlanning)
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    PlanningService.prototype.getPlanningCollaborateurs = function (idPlanning) {
+        return this._http.get(this._PlanningCollaborateursUrl + '?idPlanning=' + idPlanning)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };

@@ -165,12 +165,12 @@
 			  <providerSelection>2.0</providerSelection>
 			</configuration>
 			<executions>
-			  <!-- <execution>
+			   <execution>
 				<goals>
 				  <goal>compile</goal>
 				  <goal>testCompile</goal>
 				</goals>
-			  </execution> -->
+			  </execution>
 			</executions>
 			<dependencies>
 			  <dependency>
