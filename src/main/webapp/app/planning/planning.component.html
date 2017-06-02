@@ -296,7 +296,7 @@
                                         </tr>
                                         <tr>
                                             <th id="projet" style="width: 250px">Projets</th>
-                                            <th id="nbrTotal" style="width: 100px">Nbr Total</th>
+                                            <th id="nbrTotal" style="width: 150px">Nbr Total</th>
                                             <th id="champ" *ngFor="let s of pagination.semainePage">
                                                 <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
                                                     {{s.jourDebut}} - {{s.jourFin}}
@@ -311,10 +311,10 @@
                                         <tbody>
                                         <tr *ngFor="let p of plannigProjets; let i = index">
                                             <td id="projet">{{p.projet.titreProjet}}</td>
-                                            <td id="nbrTotal">{{p.nbrTotal}}</td>
+                                            <td id="nbrTotal">{{p.nbrTotal}} Jours</td>
                                             <td *ngFor="let s of pagination.semainePage; let i = index">
                                                 <div *ngIf="p.planningProjets[debutPro+i].nbrTotal != 0"
-                                                     style="background-color: red;color: green;width: 100%;height: 100%; Font-Weight:900">
+                                                     style="color: green;width: 100%;height: 100%; Font-Weight:900">
                                                     <span><b>{{p.planningProjets[debutPro+i].nbrTotal}}</b></span>
 
                                                 </div>
@@ -366,7 +366,7 @@
                                         </tr>
                                         <tr>
                                             <th id="collab" style="width: 250px">Collaborateur</th>
-                                            <th id="nbrTotal" style="width: 100px">Nbr Total</th>
+                                            <th id="nbrTotal" style="width: 150px">Nbr Total</th>
                                             <th id="champ" *ngFor="let s of pagination.semainePage">
                                                 <div *ngIf="s.jourFin!=s.jourDebut && s.jourDebut!=0">
                                                     {{s.jourDebut}} - {{s.jourFin}}
@@ -381,10 +381,10 @@
                                         <tbody>
                                         <tr *ngFor="let p of planningCollaborateurs; let i = index">
                                             <td id="projet">{{p.collaborateur.nom}} {{p.collaborateur.prenom}}</td>
-                                            <td id="nbrTotal">{{p.nbrTotal}}</td>
+                                            <td id="nbrTotal">{{p.nbrTotal}} Jours</td>
                                             <td *ngFor="let s of pagination.semainePage; let i = index">
                                                 <div *ngIf="p.planningCollaborateurs[debutColab+i].nbrTotal != 0"
-                                                     style="background-color: red;color: green;width: 100%;height: 100%; Font-Weight:900">
+                                                     style="color: green;width: 100%;height: 100%; Font-Weight:900">
                                                     <span><b>{{p.planningCollaborateurs[debutColab+i].nbrTotal}}</b></span>
                                                 </div>
                                                 <div *ngIf="p.planningCollaborateurs[debutColab+i].nbrTotal == 0"

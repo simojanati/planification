@@ -329,7 +329,7 @@ export class PlanningComponent implements OnInit {
                 this.pagination.semainePage = this.semaines.slice(start, start + this.pagination.selectdPage.reduce((a, b) => a + b.nbrSemaine, 0));
                 this.debutPro = 0;
                 this.debutColab = 0;
-                
+
             });
         });
 
