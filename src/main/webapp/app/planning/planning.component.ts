@@ -23,6 +23,7 @@ import {PlanningCollaborateur} from "../model/PlanningCollaborateur";
 })
 export class PlanningComponent implements OnInit {
 
+    lien: string;
     reponse: MsgError;
     plannings: Planning[];
     planification: Array<Planification>;
@@ -95,6 +96,7 @@ export class PlanningComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.lien = 'target/classes/fichierExcel/file2.xls';
         this._planninfService.getPlanning().subscribe(data => this.plannings = data);
         this._affecterService.getAffectations().subscribe(data => this.affecters = data);
         this._collaborateurSemaineService.getCollaborateurSemaine().subscribe(data => this.collaborateurSemaine = data);
