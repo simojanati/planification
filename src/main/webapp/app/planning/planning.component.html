@@ -107,7 +107,12 @@
                                             </th>
                                         </tr>
                                         <tr>
-                                            <th colspan="2"></th>
+                                            <th colspan="2">
+                                                <a [href]="linkColabProjet" style="color: white"
+                                                   download="{{nomColabProjet}}.xls">
+                                                        <i class="ace-icon fa fa-download bigger-160"></i>  Télécharger Fichier Excel
+                                                </a>
+                                            </th>
                                             <th *ngFor="let m of pagination.selectdPage"
                                                 attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}
                                             </th>
@@ -259,10 +264,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <a [href]="lien"
-                                       download="filePlanning2.xls">Télécharger Calendrier {{lien}}</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -285,7 +286,12 @@
                                     <table class="table table-striped" id="tablePlanning">
                                         <thead>
                                         <tr>
-                                            <th colspan="2"></th>
+                                            <th colspan="2">
+                                                <a [href]="linkProjet" style="color: white"
+                                                   download="{{nomProjet}}.xls">
+                                                        <i class="ace-icon fa fa-download bigger-160"></i>  Télécharger Fichier Excel
+                                                </a>
+                                            </th>
                                             <th *ngFor="let m of pagination.selectdPage"
                                                 attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}
                                             </th>
@@ -355,7 +361,12 @@
                                     <table class="table table-striped" id="tablePlanning">
                                         <thead>
                                         <tr>
-                                            <th colspan="2"></th>
+                                            <th colspan="2">
+                                                <a [href]="linkColab" style="color: white"
+                                                   download="{{nomColab}}.xls">
+                                                        <i class="ace-icon fa fa-download bigger-160"></i>  Télécharger Fichier Excel
+                                                </a>
+                                            </th>
                                             <th *ngFor="let m of pagination.selectdPage"
                                                 attr.colspan="{{m.nbrSemaine}}">{{m.mois}} / {{m.annee}}
                                             </th>

@@ -8,17 +8,23 @@ import java.io.Serializable;
  */
 
 @Entity(name = "file")
-public class File implements Serializable{
+public class File implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFile;
 
-    @Column(name = "path",unique = true)
+    @Column(name = "path", unique = true)
     private String path;
 
-    @Column(name = "nom",unique = true)
+    @Column(name = "nom", unique = true)
     private String nom;
+
+    @Column(name = "id_planning")
+    private Long idPlanning;
+
+    @Column(name = "type")
+    private String type;
 
     public Long getIdFile() {
         return idFile;
@@ -44,9 +50,19 @@ public class File implements Serializable{
         this.nom = nom;
     }
 
-    public File(String path, String nom) {
+    public Long getIdPlanning() {
+        return idPlanning;
+    }
+
+    public void setIdPlanning(Long idPlanning) {
+        this.idPlanning = idPlanning;
+    }
+
+    public File(String path, String nom, Long idPlanning, String type) {
         this.path = path;
         this.nom = nom;
+        this.idPlanning = idPlanning;
+        this.type = type;
     }
 
     public File() {

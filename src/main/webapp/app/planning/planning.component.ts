@@ -16,14 +16,26 @@ import {DisplayMois} from './../model/DisplayMois';
 import {PaginationMois} from './../model/PaginationMois';
 import {CollaborateurSemaine} from './../model/CollaborateurSemaine'
 import {CollaborateurSemaineService} from './../model/CollaborateurSemaine.service'
-import {PlanningCollaborateur} from "../model/PlanningCollaborateur";
+import {FileService} from './../model/File.service'
+import {File} from './../model/File'
+
 
 @Component({
     templateUrl: 'app/planning/planning.component.html'
 })
 export class PlanningComponent implements OnInit {
 
-    lien: string;
+    listFiles: File[];
+    fileColabProjet: File;
+    fileColab: File;
+    fileProjet: File;
+    linkColabProjet: String = '';
+    linkColab: String = '';
+    linkProjet: String = '';
+    nomColabProjet: String = '';
+    nomColab: String = '';
+    nomProjet: String = '';
+
     reponse: MsgError;
     plannings: Planning[];
     planification: Array<Planification>;
@@ -52,7 +64,8 @@ export class PlanningComponent implements OnInit {
     constructor(private _planninfService: PlanningService, private _planificationService: PlanificationService,
                 private _semaineService: SemaineService, private _affecterService: AffecterService,
                 private _collaborateurProjetService: CollaborateurProjetService,
-                private _collaborateurSemaineService: CollaborateurSemaineService) {
+                private _collaborateurSemaineService: CollaborateurSemaineService,
+                private _fileService: FileService) {
     }
 
 
@@ -96,7 +109,9 @@ export class PlanningComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.lien = 'File://C:/Users/simoj/Desktop/planification/src/main/webapp/app/excelColabProjet/FileCollaborateurProjet2.xls';
+        if(this.idPlanning != null){
+            this.chargerExcel()
+        }
         this._planninfService.getPlanning().subscribe(data => this.plannings = data);
         this._affecterService.getAffectations().subscribe(data => this.affecters = data);
         this._collaborateurSemaineService.getCollaborateurSemaine().subscribe(data => this.collaborateurSemaine = data);
@@ -296,10 +311,37 @@ export class PlanningComponent implements OnInit {
     debutPro: number = 0;
     debutColab: number = 0;
 
+    chargerExcel(){
+        this._fileService.addFile(this.idPlanning, "colab_projet").subscribe((data) => {
+            this.fileColabProjet = data;
+            this.linkColabProjet = this.fileColabProjet.path;
+            this.nomColabProjet = this.fileColabProjet.nom;
+            console.log('Colab Projet : ' + this.linkColabProjet);
+        });
+        this._fileService.addFile(this.idPlanning, "colab").subscribe((data) => {
+            this.fileColab = data;
+            this.linkColab = this.fileColab.path;
+            this.nomColab = this.fileColab.nom;
+            console.log('Colab : ' + this.linkColab);
+        });
+        this._fileService.addFile(this.idPlanning, "projet").subscribe((data) => {
+            this.fileProjet = data;
+            this.linkProjet = this.fileProjet.path;
+            this.nomProjet = this.fileProjet.nom;
+            console.log('Projet : ' + this.linkProjet);
+        });
+    }
+
     chargementDonnees() {
         this._planninfService.getPlanningById(this.idPlanning).subscribe((data) => {
             this.planning = data;
         });
+        this.chargerExcel();
+        this._fileService.getFileByIdPlanning(this.idPlanning).subscribe((data) => {
+            this.listFiles = data;
+        });
+
+
         this._collaborateurProjetService.getCollaborateurProjetByPlanning(this.idPlanning).subscribe(data => this.affecterF = data);
         this._planninfService.getPlanningProjets(this.idPlanning).subscribe((data) => {
             this.plannigProjets = data;

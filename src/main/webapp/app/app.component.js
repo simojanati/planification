@@ -16,6 +16,7 @@ var Semaine_service_1 = require("./model/Semaine.service");
 var CollaborateurProjet_service_1 = require("./model/CollaborateurProjet.service");
 var Projet_service_1 = require("./model/Projet.service");
 var CollaborateurSemaine_service_1 = require("./model/CollaborateurSemaine.service");
+var File_service_1 = require("./model/File.service");
 var URLRest_1 = require("./model/URLRest");
 var AppComponent = (function () {
     function AppComponent() {
@@ -49,6 +50,7 @@ AppComponent = __decorate([
             CollaborateurProjet_service_1.CollaborateurProjetService,
             Projet_service_1.ProjetService,
             CollaborateurSemaine_service_1.CollaborateurSemaineService,
+            File_service_1.FileService,
             URLRest_1.URLRest
         ]
     })

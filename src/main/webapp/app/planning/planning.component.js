@@ -17,14 +17,22 @@ var CollaborateurProjet_service_1 = require("./../model/CollaborateurProjet.serv
 var Semaine_service_1 = require("./../model/Semaine.service");
 var PaginationMois_1 = require("./../model/PaginationMois");
 var CollaborateurSemaine_service_1 = require("./../model/CollaborateurSemaine.service");
+var File_service_1 = require("./../model/File.service");
 var PlanningComponent = (function () {
-    function PlanningComponent(_planninfService, _planificationService, _semaineService, _affecterService, _collaborateurProjetService, _collaborateurSemaineService) {
+    function PlanningComponent(_planninfService, _planificationService, _semaineService, _affecterService, _collaborateurProjetService, _collaborateurSemaineService, _fileService) {
         this._planninfService = _planninfService;
         this._planificationService = _planificationService;
         this._semaineService = _semaineService;
         this._affecterService = _affecterService;
         this._collaborateurProjetService = _collaborateurProjetService;
         this._collaborateurSemaineService = _collaborateurSemaineService;
+        this._fileService = _fileService;
+        this.linkColabProjet = '';
+        this.linkColab = '';
+        this.linkProjet = '';
+        this.nomColabProjet = '';
+        this.nomColab = '';
+        this.nomProjet = '';
         this.mois = [];
         this.affecterUpdate = [];
         this.isExist = false;
@@ -80,7 +88,9 @@ var PlanningComponent = (function () {
     };
     PlanningComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.lien = 'File://C:/Users/simoj/Desktop/planification/src/main/webapp/app/excelColabProjet/FileCollaborateurProjet2.xls';
+        if (this.idPlanning != null) {
+            this.chargerExcel();
+        }
         this._planninfService.getPlanning().subscribe(function (data) { return _this.plannings = data; });
         this._affecterService.getAffectations().subscribe(function (data) { return _this.affecters = data; });
         this._collaborateurSemaineService.getCollaborateurSemaine().subscribe(function (data) { return _this.collaborateurSemaine = data; });
@@ -263,10 +273,35 @@ var PlanningComponent = (function () {
             alert('Champ  vide');
         }
     };
+    PlanningComponent.prototype.chargerExcel = function () {
+        var _this = this;
+        this._fileService.addFile(this.idPlanning, "colab_projet").subscribe(function (data) {
+            _this.fileColabProjet = data;
+            _this.linkColabProjet = _this.fileColabProjet.path;
+            _this.nomColabProjet = _this.fileColabProjet.nom;
+            console.log('Colab Projet : ' + _this.linkColabProjet);
+        });
+        this._fileService.addFile(this.idPlanning, "colab").subscribe(function (data) {
+            _this.fileColab = data;
+            _this.linkColab = _this.fileColab.path;
+            _this.nomColab = _this.fileColab.nom;
+            console.log('Colab : ' + _this.linkColab);
+        });
+        this._fileService.addFile(this.idPlanning, "projet").subscribe(function (data) {
+            _this.fileProjet = data;
+            _this.linkProjet = _this.fileProjet.path;
+            _this.nomProjet = _this.fileProjet.nom;
+            console.log('Projet : ' + _this.linkProjet);
+        });
+    };
     PlanningComponent.prototype.chargementDonnees = function () {
         var _this = this;
         this._planninfService.getPlanningById(this.idPlanning).subscribe(function (data) {
             _this.planning = data;
+        });
+        this.chargerExcel();
+        this._fileService.getFileByIdPlanning(this.idPlanning).subscribe(function (data) {
+            _this.listFiles = data;
         });
         this._collaborateurProjetService.getCollaborateurProjetByPlanning(this.idPlanning).subscribe(function (data) { return _this.affecterF = data; });
         this._planninfService.getPlanningProjets(this.idPlanning).subscribe(function (data) {
@@ -309,7 +344,8 @@ PlanningComponent = __decorate([
     __metadata("design:paramtypes", [Planning_service_1.PlanningService, Planification_service_1.PlanificationService,
         Semaine_service_1.SemaineService, Affecter_service_1.AffecterService,
         CollaborateurProjet_service_1.CollaborateurProjetService,
-        CollaborateurSemaine_service_1.CollaborateurSemaineService])
+        CollaborateurSemaine_service_1.CollaborateurSemaineService,
+        File_service_1.FileService])
 ], PlanningComponent);
 exports.PlanningComponent = PlanningComponent;
 //# sourceMappingURL=planning.component.js.map

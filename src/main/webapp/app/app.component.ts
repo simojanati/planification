@@ -9,7 +9,9 @@ import { SemaineService } from './model/Semaine.service';
 import { CollaborateurProjetService } from './model/CollaborateurProjet.service';
 import { ProjetService } from './model/Projet.service';
 import { CollaborateurSemaineService } from './model/CollaborateurSemaine.service';
+import { FileService } from './model/File.service';
 import { URLRest } from './model/URLRest';
+
 
 @Component({
     selector: 'pm-app',
@@ -24,6 +26,7 @@ import { URLRest } from './model/URLRest';
         CollaborateurProjetService,
         ProjetService,
         CollaborateurSemaineService,
+        FileService,
         URLRest
     ]
 })
