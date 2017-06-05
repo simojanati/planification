@@ -1,11 +1,6 @@
 package com.sqli.planification;
 
-import java.math.BigInteger;
-import java.util.List;
-
 import com.sqli.planification.dao.PlanningRepository;
-import com.sqli.planification.utils.PlanningCollaborateur;
-import com.sqli.planification.utils.PlanningCollaborateurList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.sqli.planification.dao.AffecterRepository;
 import com.sqli.planification.dao.PlanificationRepository;
 import com.sqli.planification.dao.SemaineRepository;
-import com.sqli.planification.model.CollaborateurProjet;
 import com.sqli.planification.service.ICollaborateurProjetService;
 import com.sqli.planification.service.ICollaborateurService;
 import com.sqli.planification.service.IPlanificationService;
@@ -22,8 +16,8 @@ import com.sqli.planification.service.IPlanningService;
 import com.sqli.planification.service.IProjetService;
 import com.sqli.planification.service.ISemaineService;
 import com.sqli.planification.service.impl.AffecterService;
-import com.sqli.planification.utils.DataToCsv;
-import com.sqli.planification.utils.IDataToCsv;
+import com.sqli.planification.utils.IDataToExcel;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 
 @SpringBootApplication
@@ -60,7 +54,7 @@ public class SqliProjetApplication implements CommandLineRunner {
     private ICollaborateurProjetService collaborateurProjetService;
 
     @Autowired
-    private IDataToCsv csv;
+    private IDataToExcel csv;
 
     @Autowired
     private PlanningRepository planningRepository;
@@ -74,7 +68,7 @@ public class SqliProjetApplication implements CommandLineRunner {
     public void run(String... arg0) throws Exception {
 
 
-        csv.convert2("file2", 2L);
+       // csv.convert2("file2", 2L);
 
 
 	/*	List<PlanningProjetsList> planningProjets = planningService.getPlanningProjets(1L);

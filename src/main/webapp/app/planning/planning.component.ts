@@ -96,7 +96,7 @@ export class PlanningComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.lien = 'target/classes/fichierExcel/file2.xls';
+        this.lien = 'File://C:/Users/simoj/Desktop/planification/src/main/webapp/app/excelColabProjet/FileCollaborateurProjet2.xls';
         this._planninfService.getPlanning().subscribe(data => this.plannings = data);
         this._affecterService.getAffectations().subscribe(data => this.affecters = data);
         this._collaborateurSemaineService.getCollaborateurSemaine().subscribe(data => this.collaborateurSemaine = data);

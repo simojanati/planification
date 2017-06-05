@@ -80,7 +80,7 @@ var PlanningComponent = (function () {
     };
     PlanningComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.lien = 'target/classes/fichierExcel/file2.xls';
+        this.lien = 'File://C:/Users/simoj/Desktop/planification/src/main/webapp/app/excelColabProjet/FileCollaborateurProjet2.xls';
         this._planninfService.getPlanning().subscribe(function (data) { return _this.plannings = data; });
         this._affecterService.getAffectations().subscribe(function (data) { return _this.affecters = data; });
         this._collaborateurSemaineService.getCollaborateurSemaine().subscribe(function (data) { return _this.collaborateurSemaine = data; });

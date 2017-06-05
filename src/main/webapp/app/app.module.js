@@ -63,7 +63,7 @@ AppModule = __decorate([
                 { path: 'listeCollaborateurs', component: listeCollaborateur_component_1.ListeCollaborateurComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
                 { path: '**', redirectTo: '404', pathMatch: 'full' }
-            ])
+            ], { useHash: true })
         ],
         declarations: [
             app_component_1.AppComponent,

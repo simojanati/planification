@@ -43,6 +43,7 @@ public class PlanningRestController {
         return planningService.getAllPlanning();
     }
 
+
     @GetMapping("/getplanningProjets")
     public List<PlanningProjetsList> getPlanningProjets(@RequestParam(value = "idPlanning", required = true) Long idPlanning) {
         return planningService.getPlanningProjets(idPlanning);

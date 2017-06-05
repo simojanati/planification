@@ -1,10 +1,7 @@
 package com.sqli.planification.utils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.sqli.planification.model.Affecter;
 import com.sqli.planification.model.CollaborateurProjet;
 import com.sqli.planification.model.Planning;
-import com.sqli.planification.model.Projet;
 import com.sqli.planification.model.Semaine;
 import com.sqli.planification.service.IAffecterService;
 import com.sqli.planification.service.ICollaborateurProjetService;
@@ -26,7 +22,6 @@ import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
-import jxl.format.Pattern;
 import jxl.format.UnderlineStyle;
 import jxl.write.Label;
 import jxl.write.Number;
@@ -35,11 +30,10 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 
 
 @Service
-public class DataToCsv implements IDataToCsv {
+public class DataToExcel implements IDataToExcel {
     @Autowired
     private ICollaborateurProjetService collaborateurProjetService;
 
@@ -158,7 +152,7 @@ public class DataToCsv implements IDataToCsv {
     }
 
     @Override
-    public void convert2(String nom, Long idPlanning) throws WriteException {
+    public String convert2(String nom, Long idPlanning) throws WriteException {
 
         try {
             System.out.println("------------1----------");
@@ -169,8 +163,10 @@ public class DataToCsv implements IDataToCsv {
             List<DisplayMois> displayMois = semaineService.getMoisByPlanning(planning);
             this.affecters = affecterService.getAllAffectationByPlanning(idPlanning);
             System.out.println("------------2----------");
-            String lien1 = getClass().getProtectionDomain().getCodeSource().getLocation().getPath().replace('/','\\').substring(1)+"excelColabProjet/".replace('/','\\');
-            String lien = (lien1 + nom + ".xls").replace("excelColabProjet","fichierExcel");
+            String path = new File(".").getCanonicalPath();
+            System.out.println(path);
+            String lien1 = path+"/src/main/webapp/app/excelColabProjet/".replace('/','\\');
+            String lien = (lien1 + nom + ".xls");
             System.out.println(lien1);
             System.out.println(lien);
             File f = new File(lien);
@@ -264,9 +260,10 @@ public class DataToCsv implements IDataToCsv {
             myExcel.write();
             myExcel.close();
             System.out.println("Finish .............");
-
+            return f.getAbsoluteFile().toString();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
